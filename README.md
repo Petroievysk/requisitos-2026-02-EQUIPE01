@@ -29,16 +29,14 @@ A solução proposta é o desenvolvimento de um **Sistema Web/Mobile de Questõe
 **Roteiro de Perguntas:**
 
 1. Como você realiza o seu preparo para provas de longa duração como o ENADE atualmente?
+
 2. Quais são as suas maiores dificuldades ao buscar questões passadas do INEP?
 3. Para coordenação: Quais indicadores ou gráficos são essenciais para diagnosticar deficiências da turma?
 4. Qual a importância da interação com outros alunos/professores no esclarecimento de dúvidas?
 
 **Resultados / Descobertas:**
 
-* Os estudantes apontaram que baixar PDFs brutos do INEP é ineficiente e dificulta a filtragem por temas.
-* Foi detectada uma forte necessidade de testar a gestão do tempo, justificando a criação de simulados cronometrados.
-* Coordenadores ressaltaram que precisam visualizar gargalos de aprendizado (ex: formação geral vs. específica) em dashboards intuitivos.
-* Os alunos valorizam o formato colaborativo, onde podem ver a explicação formal da questão e debater o raciocínio.
+
 
 ---
 
