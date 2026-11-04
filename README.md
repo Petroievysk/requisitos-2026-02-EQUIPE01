@@ -25,7 +25,6 @@ A solução proposta é o desenvolvimento de um **Sistema Web/Mobile de Questõe
 
 ## 3. Roteiro e Resultados de Entrevistas
 
-A elicitação foi conduzida utilizando roteiros semiestruturados com os principais stakeholders.
 
 **Roteiro de Perguntas:**
 
