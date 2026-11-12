@@ -1,182 +1,40 @@
+**Projeto de Extensão: Engenharia de Requisitos Aplicada ao Contexto Educacional**[cite: 12]
 
-# Projeto de Extensão - Plataforma de Gestão do Conhecimento e Aprendizagem (ENADE)
+Este repositório contém os artefactos de elicitação de requisitos, modelagem UML e prototipação para a **Plataforma de Gestão do Conhecimento e Aprendizagem — ENADE**[cite: 22]. O projeto foi desenvolvido como requisito de avaliação da disciplina de Requisitos e Modelagem de Sistemas do curso de Análise e Desenvolvimento de Sistemas (ADS) da Universidade de Fortaleza (UNIFOR).
 
-**Disciplina:** Requisitos e Modelagem de Sistemas
-**Instituição:** Universidade de Fortaleza (UNIFOR)
+## 📋 Sobre o Projeto
 
----
+O ENADE é um componente curricular obrigatório e um indicador fundamental da qualidade do ensino superior brasileiro[cite: 13]. No entanto, muitos estudantes enfrentam dificuldades na preparação devido à falta de materiais organizados, simulados práticos e feedback contínuo sobre o seu desempenho[cite: 13]. 
 
-## 1. Documento de Visão
+O **Prepara ENADE** visa democratizar o acesso a materiais de qualidade[cite: 18], oferecendo:
+* Banco de questões organizadas por ano e área de conhecimento[cite: 15].
+* Simulados com tempo cronometrado[cite: 15].
+* Gabaritos comentados e fóruns de discussão[cite: 15].
+* Painéis (dashboards) estatísticos de desempenho[cite: 15].
 
-O Exame Nacional de Desempenho dos Estudantes (ENADE) é um componente curricular obrigatório e um indicador fundamental da qualidade do ensino superior. No entanto, os estudantes enfrentam dificuldades no preparo devido à falta de materiais organizados, simulados práticos e feedback estruturado sobre o seu desempenho.
+## 📂 Estrutura do Repositório e Entregáveis
 
-A solução proposta é o desenvolvimento de um **Sistema Web/Mobile de Questões Comentadas do ENADE**. A plataforma atuará como uma ferramenta de gestão do conhecimento, centralizando provas passadas, gerando simulados cronometrados, oferecendo gabaritos comentados e painéis gráficos de desempenho para apoiar estudantes, professores e coordenações. O impacto esperado inclui a democratização do acesso a materiais de qualidade e a melhoria do desempenho das turmas.
+O projeto está dividido em duas grandes entregas (Sprints), documentadas na pasta `/docs`:
 
----
+### 🧩 Trabalho P1 - Elicitação e Modelagem Inicial
+* [Documento de Visão, Stakeholders e Requisitos](docs/01_visao_e_requisitos.md): Definição do problema, público-alvo, técnicas de elicitação (análise documental e exploratória) e *backlog* priorizado[cite: 16].
+* [Modelagem UML](docs/02_diagramas_uml.md): Diagramas de Casos de Uso, Componentes e Implantação desenvolvidos com a sintaxe Mermaid[cite: 16].
 
-## 2. Identificação de Stakeholders
+### 🧩 Trabalho P2 - Especificação Formal e Prototipação
+* [Especificação de Requisitos (SRS)](docs/03_srs_ieee_830.md): Documento completo estruturado segundo o padrão IEEE 830, detalhando casos de uso e regras de negócio[cite: 14].
+* [Protótipos de Interface](docs/04_prototipos.md): *Wireframes* e protótipo navegável (Figma) com as principais interfaces do sistema[cite: 16].
 
-* **Estudantes de Graduação:** Usuários diretos, foco principal da plataforma, que realizarão as avaliações, simulados e interagirão nos fóruns.
-* **Professores:** Atuam como apoio pedagógico, validam gabaritos comentados e orientam ações de reforço com base nos dados gerados.
-* **Coordenações de Curso:** Acompanham o desempenho institucional das turmas, filtram indicadores e planejam intervenções curriculares.
-* **Administradores do Sistema:** Responsáveis por manter a infraestrutura, gerir o banco de questões e realizar a importação de novas provas do INEP.
+## 🛠️ Tecnologias e Ferramentas Utilizadas
 
----
+* **Markdown & Mermaid:** Para documentação estruturada e renderização nativa de diagramas UML no GitHub.
+* **Figma:** Para a construção de *wireframes* de média/alta fidelidade e prototipagem navegável[cite: 17].
+* **GitHub Projects (Kanban):** Para gestão ágil do *backlog* e *issues* do projeto.
 
-## 3. Roteiro e Resultados de Entrevistas
+## 👨‍💻 Autoria e Orientação
 
-
-**Roteiro de Perguntas:**
-
-1. Como você realiza o seu preparo para provas de longa duração como o ENADE atualmente?
-
-2. Quais são as suas maiores dificuldades ao buscar questões passadas do INEP?
-3. Para coordenação: Quais indicadores ou gráficos são essenciais para diagnosticar deficiências da turma?
-4. Qual a importância da interação com outros alunos/professores no esclarecimento de dúvidas?
-
-**Resultados / Descobertas:**
-
-
+* **Autor:** Diego (@Petroievysk)
+* **Professor Responsável:** Marcelo Bezerra (@marcelobezerra-dotcom)
+* **Instituição:** Universidade de Fortaleza (UNIFOR) - Semestre 2026.2[cite: 22]
 
 ---
-
-## 4. Requisitos
-
-### Requisitos Funcionais (RF)
-
-* **RF01:** O sistema deve permitir o cadastro e a autenticação segura de diferentes perfis de usuário (Estudante, Professor/Coordenação, Administrador).
-* **RF02:** O sistema deve permitir ao administrador a importação de provas em PDF do INEP para alimentar o banco de dados.
-* **RF03:** O sistema deve classificar as questões por ano, curso/área de conhecimento e componente (formação geral e conhecimento específico).
-* **RF04:** O sistema deve possibilitar a geração e execução de simulados com tempo cronometrado.
-* **RF05:** O sistema deve exibir gabaritos detalhadamente comentados após a conclusão de questões ou simulados.
-* **RF06:** O sistema deve possuir um fórum de discussão integrado e específico para cada questão.
-* **RF07:** O sistema deve gerar relatórios e gráficos de estatísticas de desempenho por área de conhecimento (individual e por curso).
-
-### Requisitos Não Funcionais (RNF)
-
-* **RNF01:** A interface do sistema deve ser responsiva, funcionando adequadamente em plataformas Web e Mobile.
-* **RNF02:** O sistema deve garantir a privacidade e segurança dos dados, estando em conformidade com a LGPD.
-* **RNF03:** O sistema deve apresentar tempos de resposta inferiores a 2 segundos para a submissão de respostas em simulados.
-* **RNF04:** A plataforma deve possuir alta disponibilidade, especialmente em períodos que antecedem a aplicação do exame oficial.
-
----
-
-## 5. Regras de Negócio
-
-* **RN01 (Acesso de Conteúdo):** O acesso a gabaritos comentados só deve ser liberado ao estudante após a submissão da resposta daquela questão (para evitar consultas prévias).
-* **RN02 (Autenticação Institucional):** A extração e cruzamento de dados institucionais (identificação de enadistas/não enadistas) só poderá ocorrer mediante integração autorizada e sob restrições da LGPD.
-* **RN03 (Cronômetro):** Nos simulados, caso o tempo cronometrado se esgote, o sistema deve encerrar a prova automaticamente e registrar apenas as questões já respondidas.
-
----
-
-## 6. Backlog Priorizado
-
-Organizado no modelo de Histórias de Usuário, priorizado por valor de negócio.
-
-| ID             | História de Usuário (User Story)                                                                                               | Prioridade |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **US01** | Como *administrador*, quero *importar provas do ENADE em PDF* para *alimentar o banco de questões rapidamente*.           | Alta       |
-| **US02** | Como *estudante*, quero *me cadastrar e fazer login* para *ter acesso ao sistema*.                                         | Alta       |
-| **US03** | Como *estudante*, quero *fazer um simulado com limite de tempo* para *treinar minha agilidade*.                            | Alta       |
-| **US04** | Como *estudante*, quero *ver o gabarito comentado ao fim da prova* para *entender meus erros*.                             | Alta       |
-| **US05** | Como *coordenação*, quero *visualizar gráficos de desempenho por tema* para *diagnosticar as deficiências do curso*.   | Média     |
-| **US06** | Como *estudante*, quero *comentar e interagir na página de uma questão* para *tirar dúvidas com professores e colegas*. | Média     |
-| **US07** | Como *professor*, quero *filtrar questões por competência* para *utilizá-las em sala de aula*.                          | Baixa      |
-
----
-
-## 7. Diagramas UML
-
-### 7.1 Diagrama de Casos de Uso
-
-Mapeia a interação dos atores com as funcionalidades do sistema.
-
-
-### 1. Diagrama de Casos de Uso
-
-```mermaid
-flowchart LR
-    %% Atores
-    Estudante((Estudante))
-    Admin((Administrador))
-    Coord((Coordenação/Professor))
-
-    %% Limite do Sistema
-    subgraph SistemaENADE [Sistema ENADE]
-        Auth([Realizar Autenticação])
-        Banco([Gerenciar Banco de Questões])
-        Simulado([Realizar Simulado Cronometrado])
-        Gabarito([Acessar Gabarito Comentado])
-        Forum([Interagir no Fórum de Discussão])
-        Painel([Visualizar Painel de Desempenho])
-    end
-
-    %% Conexões dos Atores
-    Estudante --- Simulado
-    Estudante --- Forum
-    Estudante --- Painel
-    Estudante --- Auth
-
-    Admin --- Banco
-    Admin --- Auth
-
-    Coord --- Painel
-    Coord --- Forum
-    Coord --- Auth
-
-    %% Includes e Extends
-    Banco -. "«include»" .-> Auth
-    Simulado -. "«include»" .-> Auth
-    Simulado -. "«extend»" .-> Gabarito
-```
-
-### 2. Diagrama de Componentes
-
-```mermaid
-flowchart TD
-    subgraph Frontend [Camada de Apresentação]
-        Web["Interface Web / React"]
-        Mobile["App Mobile / React Native"]
-    end
-
-    subgraph Backend [Camada de Aplicação - API Rest]
-        API["API Gateway"]
-        ServSimulados["Serviço de Simulados"]
-        ServEstatisticas["Serviço de Estatísticas"]
-        ServImportacao["Serviço de Importação de PDF"]
-    end
-
-    subgraph Database [Camada de Dados]
-        BD[("Banco de Dados PostgreSQL")]
-    end
-
-    Web -->|JSON/HTTPS| API
-    Mobile -->|JSON/HTTPS| API
-  
-    API --> ServSimulados
-    API --> ServEstatisticas
-    API --> ServImportacao
-  
-    ServSimulados --> BD
-    ServEstatisticas --> BD
-    ServImportacao -.->|Alimenta BD| BD
-```
-
-### 3. Diagrama de Implantação
-
-```mermaid
-flowchart TD
-    subgraph Clientes [Dispositivos Cliente]
-        ClientWeb["Nó: Cliente Web<br>Navegador Chrome/Edge"]
-        ClientMob["Nó: Cliente Mobile<br>Smartphone iOS/Android"]
-    end
-
-    subgraph Servidores [Nuvem / Servidor]
-        ServidorApp["Nó: Servidor de Aplicação<br>Node.js / Express"]
-        ServidorBD["Nó: Servidor de Banco de Dados<br>AWS RDS - PostgreSQL"]
-    end
-
-    ClientWeb <-->|Protocolo HTTPS| ServidorApp
-    ClientMob <-->|Protocolo HTTPS| ServidorApp
-    ServidorApp <-->|Conexão TCP/IP| ServidorBD
-```
+*Projeto puramente conceitual (sem implementação de código fonte), focado em práticas de Engenharia de Software e Requisitos.*[cite: 21]
