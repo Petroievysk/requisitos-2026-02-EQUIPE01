@@ -44,4 +44,4 @@ O projeto está dividido em duas grandes entregas (Sprints), documentadas na pas
 * **Instituição:** Universidade de Fortaleza (UNIFOR) – Semestre 2026.2
 
 ---
-*Nota: Este é um projeto puramente conceitual (sem implementação de código-fonte), focado em práticas de Engenharia de Software e Requisitos.*
+
