@@ -17,7 +17,7 @@
 | **Versão e data** | 1.0 — 12/11/2026 |
 
 ## 1. Objetivo
-Proporcionar aos estudantes de graduação da Unifor um ambiente integrado de preparação realista para o ENADE[cite: 22]. O sistema visa suprir a falta de materiais organizados por meio de simulados cronometrados com questões oficiais, fóruns de discussão para aprendizagem colaborativa e painéis estatísticos de desempenho, subsidiando também o corpo docente com métricas para ações de reforço pedagógico.
+Proporcionar aos estudantes de graduação da Unifor um ambiente integrado de preparação realista para o ENADE. O sistema visa suprir a falta de materiais organizados por meio de simulados cronometrados com questões oficiais, fóruns de discussão para aprendizagem colaborativa e painéis estatísticos de desempenho, subsidiando também o corpo docente com métricas para ações de reforço pedagógico.
 
 ## 2. Contexto, Problema e Descrição Sumária
 ### 2.1 Situação atual — entendimento inicial
@@ -79,12 +79,12 @@ Disponibilizar consultas a bancos de questões do INEP filtradas por área/ano; 
 ### 6.2 Funcionalidades (F)
 | ID | Funcionalidade e resultado esperado | Necessidade | Atores | Prioridade |
 | :--- | :--- | :--- | :--- | :--- |
-| **F-01** | **Autenticar via SSO Institucional:** Permitir login seguro via Google Workspace / UOL. | NEC-05 | AT-01, AT-02, AT-03 | Essencial |
+| **F-01** | **Autenticar via SSO Institucional:** Permitir login seguro via Google Workspace / UOL. | NEC-05 | AT-01, AT-02, AT-03, AT-04 | Essencial |
 | **F-02** | **Filtrar Banco de Questões:** Busca facetada por ano, área e componente (Geral/Específico). | NEC-02 | AT-01, AT-03 | Essencial |
 | **F-03** | **Motor de Simulados:** Gerar exame com tempo cronometrado e auto-submissão ao fim do tempo. | NEC-01 | AT-01 | Essencial |
 | **F-04** | **Gabarito Comentado:** Exibir justificativa detalhada da resposta correta após a submissão. | NEC-03 | AT-01, AT-03 | Essencial |
 | **F-05** | **Fórum por Questão:** Interface de comentários vinculada a cada questão para discussão. | NEC-03 | AT-01, AT-03 | Média |
-| **F-06** | **Painel de Desempenho (Dashboards):** Gráficos de acertos por área de conhecimento (individual e global). | NEC-04 | AT-01, AT-02 | Essencial |
+| **F-06** | **Painel de Desempenho (Dashboards):** Gráficos de acertos por área de conhecimento (individual e global). | NEC-04 | AT-01, AT-02, AT-03 | Essencial |
 | **F-07** | **Importação INEP:** Rotina administrativa para carga de novas provas no banco de dados. | NEC-02 | AT-04, AT-06 | Essencial |
 
 ### 6.3 Regras de Negócio e Premissas
