@@ -1,11 +1,13 @@
 # Protótipos de Interface — Prepara ENADE
 
 > **Projeto:** Prepara ENADE - UNIFOR
+>
 > **Sprint:** 2 (Trabalho P2)
+>
 > **Ferramenta de Design:** Figma
 
 ## 🔗 Links de Acesso
-*(Cole aqui o link público do seu arquivo Figma e do protótipo apresentável)*
+
 
 *   **Figma (Área de Design/Wireframes):** `[INSERIR_LINK_AQUI]`
 *   **Figma (Protótipo Navegável / Apresentação):** `[INSERIR_LINK_AQUI]`
@@ -14,7 +16,9 @@
 
 ## 📱 Estrutura das Interfaces Desenhadas
 
-Com base no Documento SRS (IEEE 830), o design das telas foi planejado para atender aos fluxos primários dos Casos de Uso. As seguintes telas de média/alta fidelidade foram criadas para o perfil do **Estudante**:
+Com base no Documento SRS (IEEE 830), o design das telas foi planejado para atender aos fluxos primários dos Casos de Uso. O Prepara ENADE é uma **aplicação exclusivamente web**: não há aplicativo nativo, e as telas são projetadas em **duas versões do mesmo layout responsivo** — *Desktop* (≥ 1024 px) e *Celular* (a partir de 360 px) — no Figma. As seguintes telas de média/alta fidelidade foram criadas para o perfil do **Estudante**:
+
+> **Adaptações para celular (RNF-06):** menu lateral vira menu recolhível (ícone "hambúrguer"); gráficos e cards são empilhados em coluna única; o mapa de questões do simulado passa a ser uma gaveta acionada por botão; botões e alternativas têm área de toque ampliada; não há rolagem horizontal.
 
 ### 1. Tela de Login Institucional (Referência UC-01)
 *   **Elementos:** Logo da Unifor, texto de boas-vindas, botão em destaque "Entrar com Conta Unifor (Google)".
@@ -34,7 +38,7 @@ Com base no Documento SRS (IEEE 830), o design das telas foi planejado para aten
     *   **Header fixo:** Cronômetro com contagem regressiva em destaque.
     *   **Corpo:** Texto base/imagem da questão, enunciado e *Radio Buttons* (A, B, C, D, E).
     *   **Rodapé:** Botões de navegação "Anterior", "Próxima" e o botão final "Finalizar Simulado".
-    *   **Lateral/Grid:** Mapa de questões (1 a 35) mostrando o status (respondida/em branco).
+    *   **Lateral/Grid:** Mapa de questões (1 a 35) mostrando o status (respondida/em branco). No celular, é aberto como gaveta/painel recolhível por um botão "Mapa de questões".
 
 ### 5. Gabarito Comentado e Fórum (Referência UC-04 e UC-05)
 *   **Elementos:**
@@ -54,3 +58,5 @@ Para a apresentação do projeto (Critério de Avaliação P2), o protótipo no 
 4. Entra no Ambiente de Simulado, clica em 2 alternativas simulando a resolução.
 5. Clica em "Finalizar".
 6. O fluxo termina na tela de Gabarito Comentado, provando a viabilidade da plataforma.
+
+> O mesmo roteiro é linkado nas duas versões (Desktop e Celular), demonstrando a compatibilidade responsiva da plataforma web.
