@@ -1,6 +1,6 @@
 # 🎓 Prepara ENADE - UNIFOR
 
-> \\\\\\\*\\\\\\\*Projeto de Extensão: Engenharia de Requisitos Aplicada ao Contexto Educacional\\\\\\\*\\\\\\\*
+> **Projeto de Extensão: Engenharia de Requisitos Aplicada ao Contexto Educacional**
 
 Este repositório contém os artefatos de elicitação de requisitos, modelagem UML e prototipação para a **Plataforma de Gestão do Conhecimento e Aprendizagem — ENADE**. O projeto foi desenvolvido como requisito de avaliação da disciplina de Requisitos e Modelagem de Sistemas do curso de Análise e Desenvolvimento de Sistemas (ADS) da Universidade de Fortaleza (UNIFOR).
 
