@@ -64,9 +64,12 @@ Descreve a estrutura modular da plataforma e como os subsistemas se comunicam pa
 graph TB
     subgraph Camada_Cliente["🖥️ Camada de Apresentação (Frontend Web Responsivo)"]
         UI_Layout["Layout Responsivo<br/>(Desktop e Celular)"]
+        UI_Acesso["Módulo de Acesso<br/>(Login SSO e Perfis)"]
+        UI_Banco["Módulo de Questões<br/>(Filtros e Gabarito Comentado)"]
         UI_Simulado["Módulo de Simulação<br/>(Cronômetro e Questões)"]
         UI_Dashboard["Módulo de Dashboards<br/>(Gráficos de Desempenho)"]
-        UI_Forum["Módulo do Fórum<br/>(Comentários e Gabaritos)"]
+        UI_Forum["Módulo do Fórum<br/>(Comentários por Questão)"]
+        UI_Admin["Módulo Administrativo<br/>(Importação de Provas)"]
     end
  
     subgraph Camada_Servidor["⚙️ Camada de Aplicação (Backend API REST)"]
@@ -89,10 +92,15 @@ graph TB
     UI_Simulado --> Motor
     UI_Dashboard --> Analytics
     UI_Forum --> Conteudo
-    UI_Simulado --> Auth
+    UI_Acesso --> Auth
+    UI_Banco --> Conteudo
+    UI_Admin --> Conteudo
     UI_Layout -.-> UI_Simulado
     UI_Layout -.-> UI_Dashboard
     UI_Layout -.-> UI_Forum
+    UI_Layout -.-> UI_Acesso
+    UI_Layout -.-> UI_Banco
+    UI_Layout -.-> UI_Admin
  
     %% Conexões Backend -> Dados
     Auth --> DB
@@ -149,7 +157,7 @@ graph TB
     Node2 -- "OAuth 2.0 / HTTPS" --> GoogleSSO
 ```
  
-## 4. Mapa de Histórias de Usuário (User Journey)
+## 4. Jornada do Usuário (User Journey)
  
 Uma visão cronológica da interação do estudante com o sistema para a realização de um ciclo completo de estudo para o ENADE.
  
