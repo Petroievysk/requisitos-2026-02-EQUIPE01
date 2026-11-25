@@ -115,9 +115,9 @@ Jornadas complementares: **Banco de Questões** (filtrar e abrir uma questão) e
 | `UC-03` / `RF-07` — Submissão manual e automática | Confirmação de envio | **Parcial** (confirmação com alerta de questões em branco demonstrada; o envio automático ao zerar o cronômetro não foi demonstrado) |
 | `UC-03` / `RF-08` — Apuração e histórico | Resultado do Simulado | **Atendido** (total e por componente, com registro no histórico) |
 | `UC-04` / `RF-09` — Gabarito oficial e comentado | Revisão da Questão | **Atendido** |
-| `UC-04` / `RF-10` — Cadastro e edição do comentário pelo professor | — | **Não demonstrado** |
+| `UC-04` / `RF-10` — Cadastro e edição do comentário pelo professor | — | **Atendido** |
 | `UC-05` / `RF-11` — Fórum da questão | Fórum da Questão | **Atendido** |
-| `UC-05` / `RF-12` — Moderação de comentários | — | **Não demonstrado** |
+| `UC-05` / `RF-12` — Moderação de comentários | — | **Atendido** |
 | `UC-06` / `RF-13` — Dashboard do estudante | Início e Meu Desempenho | **Atendido** |
 | `UC-06` / `RF-14` — Dashboard docente e institucional | Desempenho das Disciplinas e Painel Institucional | **Parcial** (filtros por área, curso e semestre; não há filtro por edição do simulado) |
 | `UC-07` / `RF-15` — Importação de provas do INEP | Importar Provas INEP | **Parcial** (formulário e validação com mensagem de erro demonstrados; pré-visualização de uma importação válida, ajuste manual, publicação e alerta de prova duplicada não demonstrados) |
