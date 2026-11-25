@@ -1,103 +1,134 @@
 # Protótipos de Interface — Prepara ENADE
-
+ 
 > **Projeto:** Prepara ENADE - UNIFOR
 >
 > **Sprint:** 2 (Trabalho P2)
 >
-> **Ferramentas de Design:** Figma (telas) e Canva (publicação do protótipo navegável)
+> **Ferramenta:** Canva (protótipo web interativo)
 >
 > **Plataforma:** aplicação exclusivamente web, com layout responsivo (Desktop e Celular)
-
+ 
 ## 🔗 Links de Acesso
-
+ 
 *   **Protótipo Navegável / Apresentação (Canva):** [https://gazelle-853dkc.my.canva.site/](https://gazelle-853dkc.my.canva.site/)
-
 ---
-
+ 
+## 🧭 Visão Geral do Protótipo
+ 
+O protótipo é uma **aplicação web interativa com dados fictícios**, que simula os principais fluxos do Prepara ENADE para os quatro perfis do sistema. Ele pode ser visualizado em **Desktop** e em **Celular**, demonstrando o layout responsivo exigido no `RNF-06`. Como não há aplicativo nativo, todo o acesso ocorre pelo navegador.
+ 
+*   Os enunciados são **demonstrativos** e não correspondem a provas oficiais do INEP; cada questão traz a indicação "INEP · referência demonstrativa".
+*   As respostas marcadas ficam registradas no navegador durante a demonstração.
+*   Nenhum dado pessoal é coletado ou enviado.
 ## 🎨 Identidade Visual
-
-O protótipo segue uma identidade limpa, em **azul e branco**, com foco em clareza e pouca poluição visual.
-
-*   **Marca:** logotipo "Prepara ENADE" com ícone de capelo (formatura) e tipografia serifada, apresentado em um cartão no topo da tela de login.
-*   **Paleta:** azul marinho (fundos de destaque e títulos), azul royal (ações principais), azul claro (barras de progresso e gráficos), azul-gelo e branco (fundos e cards).
-*   **Tipografia:** Inter (Regular, Medium, Semi Bold e Bold).
-*   **Princípios de UX aplicados:** uma ação principal por tela, textos curtos, muito espaço em branco, feedback de estado (cronômetro, questão atual, progresso) e rótulos de ação com verbo ("Iniciar novo simulado", "Finalizar simulado").
-
+ 
+*   **Marca:** logotipo "Prepara ENADE" com ícone de capelo (formatura).
+*   **Paleta:** azul e branco, com tons de azul-gelo para fundos e cards, azul médio para ações principais e azul marinho para títulos.
+*   **Tipografia:** Inter (sans-serif).
+*   **Princípios de UX aplicados:** uma ação principal por tela, muito espaço em branco, textos curtos, avisos de estado (tempo restante, questão atual, resposta registrada), confirmação antes de ações irreversíveis e estados vazios com mensagem clara ("Nenhuma questão encontrada").
 ---
-
-## 📱 Estrutura das Interfaces Desenhadas
-
-Com base no Documento SRS (IEEE 830), as telas foram planejadas para atender aos fluxos primários dos Casos de Uso do perfil **Estudante**. O Prepara ENADE é uma **aplicação exclusivamente web**: não há aplicativo nativo. Cada tela principal possui duas versões do mesmo layout responsivo: *Desktop* e *Celular* (a partir de 360 px).
-
-> **Adaptações para celular (RNF-06):** o menu lateral vira menu recolhível (ícone "hambúrguer") que abre a gaveta "Sua jornada"; cards e indicadores são empilhados em coluna única; botões e alternativas têm área de toque ampliada; o cronômetro permanece fixo no cabeçalho; não há rolagem horizontal.
-
-### 1. Tela de Acesso Institucional (Referência UC-01 / RF-01 e RF-02)
-*   **Elementos:** logotipo com capelo, selo "Acesso institucional", título **"Seu preparo começa aqui."**, subtítulo "Simulados, questões e desempenho em um só lugar.", cartão **"Protótipo demonstrativo"**, campo **"Explorar como"** (perfil padrão: *Estudante*), botão em destaque **"Explorar protótipo"** e a nota "Dados fictícios. Não informe dados pessoais neste protótipo."
-*   **Aviso institucional (RN-01):** o cartão informa que o acesso real seria feito via Google Workspace / UOL, exclusivamente com conta `@unifor.br`.
-*   **Comportamento:** como se trata de uma demonstração, o protótipo **não autentica usuários**: o avaliador escolhe o perfil em "Explorar como" e entra direto na plataforma. Na versão real, essa etapa é substituída pelo SSO institucional.
-
-### 2. Dashboard Inicial do Estudante (Referência UC-06 / RF-13)
-*   **Navegação:** menu lateral com *Visão geral*, *Simulados*, *Histórico* e *Desempenho*, além do atalho "Aprenda em conjunto" para os fóruns.
-*   **Conteúdo principal:** card de destaque "Treine hoje. Vá mais longe." com o botão primário **"Iniciar novo simulado"**; indicadores (simulados feitos, aproveitamento e horas de estudo); gráfico de barras "Seu desempenho por área" (Formação Geral e Conhecimentos Específicos); card "Último simulado" com o botão "Revisar gabarito".
-*   **Observação:** os valores exibidos são ilustrativos.
-
-### 3. Configuração de Simulado (Referência UC-03 / RF-05)
-*   **Elementos:** seleção de **Ano da prova** (ex.: 2023) e **Área do conhecimento** (ex.: Análise e Desenvolvimento de Sistemas), botão **"Começar simulado"** e link "Voltar à visão geral".
-*   **Aviso (RN-02):** card "Seu treino, no ritmo do ENADE" informando **35 questões · 4 horas** e que, ao fim do tempo, as respostas serão enviadas automaticamente.
-
-### 4. Ambiente de Simulado (Referência UC-03 / RF-06 e RF-07)
-*   **Cabeçalho fixo:** nome do simulado, área e **cronômetro regressivo** em destaque.
-*   **Corpo:** identificação da questão ("Questão 01 / 35"), enunciado e cinco alternativas (A a E) em *radio buttons*.
-*   **Painel "Seu progresso":** mapa de questões numerado de 01 a 35, com destaque para a questão atual, e a mensagem de que as respostas são mantidas ao navegar.
-*   **Rodapé:** botões "Anterior" (na primeira questão, "Configuração"), **"Próxima"** e **"Finalizar simulado"**.
-*   **Observação:** o protótipo apresenta duas questões navegáveis, com cronômetro estático e conteúdo autoral demonstrativo.
-
-### 5. Gabarito Comentado e Fórum (Referência UC-04 e UC-05 / RF-09 e RF-11)
-*   **Resumo do resultado:** card "Simulado concluído" com total de acertos (24 de 35) e percentual (69%).
-*   **Resolução:** indicação da alternativa correta com ícone de check e texto, e seção "Explicação do professor".
-*   **Fórum "Aprenda em comunidade":** comentários identificados por perfil (Estudante e Professor), campo "Escreva sua dúvida..." e botão "Praticar novamente".
-
-### 6. Versão Celular
-*   Telas disponíveis em coluna única: Login, Dashboard, Configuração de Simulado, Ambiente de Simulado (questões 1 e 2) e Gabarito Comentado com Fórum.
-*   Menu "hambúrguer" abrindo a gaveta **"Sua jornada"** (Visão geral, Simulados, Histórico e gabarito, Desempenho).
-
+ 
+## 📱 Estrutura das Interfaces
+ 
+### 1. Acesso Institucional (Referência UC-01 / RF-01 e RF-02)
+*   **Elementos:** logotipo, selo "Acesso institucional", título **"Seu preparo começa aqui."**, cartão **"Protótipo demonstrativo"**, campo **"Explorar como"** (Estudante, Professor, Coordenador ou Administrador), botão **"Explorar protótipo"** e a nota "Dados fictícios. Não informe dados pessoais neste protótipo."
+*   **Aviso institucional (RN-01):** informa que o acesso real seria via Google Workspace / UOL, exclusivamente com conta `@unifor.br`.
+*   **Comportamento:** o protótipo **não autentica usuários**. O perfil escolhido define o menu e as telas exibidas (controle de acesso por perfil, `RF-02`). Na versão real, esta etapa é substituída pelo SSO institucional.
+### 2. Perfil Estudante
+ 
+O menu lateral (no celular, o ícone "hambúrguer") contém: **Início**, **Banco de Questões**, **Meu Desempenho** e **Sair da demonstração**.
+ 
+#### 2.1 Início — Painel do Estudante (UC-06)
+*   Saudação "Olá, estudante." e card de destaque "Pronto para seu próximo simulado?" com o botão **"Iniciar Novo Simulado"**.
+*   Seção "Seu desempenho" com os cards **Média geral**, **Simulados concluídos** e **Questões resolvidas**, e o link "Ver detalhes".
+*   Card "Banco de Questões" com o botão **"Explorar questões"**.
+#### 2.2 Banco de Questões (Referência UC-02 / RF-03 e RF-04)
+*   **Filtros:** Ano da edição, Área / curso, Componente (Formação Geral ou Conhecimento Específico) e busca por palavra-chave no enunciado, com os botões **"Filtrar"** e **"Limpar filtros"**.
+*   **Resultado:** lista "Questões encontradas" com contador, indicação do componente, ano, área e fonte, e o botão **"Abrir questão"**.
+*   **Estado vazio:** mensagem "Nenhuma questão encontrada" com sugestão de ampliar os critérios.
+*   **Resolução avulsa:** ao abrir uma questão, o estudante marca uma alternativa e vê o gabarito oficial e o resultado ("Sua resposta: A · Erro").
+#### 2.3 Configurar Simulado (Referência UC-03 / RF-05)
+*   Seleção de **Ano da prova** e **Área de conhecimento**.
+*   Card **"Como funciona"** (RN-02): 35 questões objetivas (8 de Formação Geral e 27 de Conhecimento Específico), tempo máximo de 4 horas e questões em branco contadas como erro.
+*   Botão **"Começar Simulado"**.
+#### 2.4 Ambiente do Simulado (Referência UC-03 / RF-06 e RF-07)
+*   **Cabeçalho:** identificação do simulado ("2023 · Administração") e **cronômetro regressivo** (a partir de 04:00:00).
+*   **Corpo:** identificação do componente (Formação Geral ou Conhecimento Específico), "Questão N de 35", enunciado e cinco alternativas (A a E).
+*   **Mapa de questões:** grade de 1 a 35, com destaque para as respondidas e contorno azul para a questão atual. Em telas grandes aparece ao lado da questão; no celular, abre como gaveta pelo botão **"Mapa"**.
+*   **Navegação:** botões "Anterior" e "Próxima" e botão **"Finalizar Simulado"**, que abre a confirmação.
+*   **Confirmação de envio:** diálogo "Finalizar simulado?" avisando a quantidade de questões em branco ("Você ainda tem 32 questões em branco. Elas serão contabilizadas como erro. O envio não pode ser desfeito."), com os botões "Voltar" e "Confirmar envio".
+#### 2.5 Resultado do Simulado (Referência UC-03 / RF-08)
+*   Cards **Acertos totais** (ex.: 3/35), **Formação Geral** (x/8) e **Conhecimento Específico** (x/27), cada um com o percentual de acertos.
+*   Aviso de que as questões não respondidas foram contabilizadas como erro e de que o resultado foi registrado no histórico.
+*   Botões **"Ver gabarito oficial e comentado"** e **"Meu Desempenho"**.
+#### 2.6 Revisão da Questão: Gabarito Comentado e Fórum (Referência UC-04 e UC-05 / RF-09 e RF-11)
+*   Enunciado com a alternativa marcada pelo estudante em destaque e o quadro **"Gabarito oficial demonstrativo"** com a alternativa correta e o resultado ("Sua resposta: A · Erro" ou "Sem resposta registrada").
+*   Seção expansível **"Gabarito comentado / Explicação do Professor"**.
+*   Painel **"Fórum da Questão"** com os comentários (nome, perfil e data), campo "Sua contribuição" e botão **"Publicar Comentário"**.
+*   Navegação "Questão anterior" e "Próxima questão" entre as questões do simulado.
+#### 2.7 Meu Desempenho (Referência UC-06 / RF-13)
+*   Cards **Média geral de acertos**, **Questões respondidas** e **Simulados concluídos**.
+*   Gráfico **"Acertos por componente"** (Formação Geral e Conhecimento Específico).
+*   Gráfico **"Evolução por simulado"**, com uma barra por simulado concluído, em ordem cronológica.
+### 3. Perfil Professor (Referência UC-06 / RF-14)
+*   Menu: **Desempenho das Disciplinas**, **Banco de Questões** e **Sair da demonstração**.
+*   **Desempenho das Disciplinas:** filtro por **Área vinculada**, cards de Média geral, Adesão e Simulados analisados, gráfico de acertos por componente e lista de **tópicos com maior índice de erro**. A tela traz o aviso de que os dados são agregados e anonimizados.
+### 4. Perfil Coordenador (Referência UC-06 / RF-14)
+*   Menu: **Painel Institucional** e **Sair da demonstração**.
+*   **Painel Institucional do Curso:** filtros de **Curso** e **Semestre**, cards de **Média geral**, **Adesão** e **Simulados analisados**, gráfico **"Acertos por componente"** (Formação Geral e Conhecimento Específico) e lista **"Tópicos com maior índice de erro"** em ranking com o percentual de erro de cada tópico.
+*   **Privacidade (`RN-05` / LGPD):** a tela informa que os dados são agregados e que nenhum estudante é identificado ("Visualização demonstrativa anonimizada").
+### 5. Perfil Administrador (Referência UC-07 / RF-15)
+*   **Importar Provas INEP** (Gestão de conteúdo): campos Ano da edição, Área / curso, **Prova estruturada (JSON)** e **Gabarito oficial (JSON)**, nota do formato esperado (são exigidas 35 questões e 35 respostas) e botão **"Processar e Pré-visualizar"**.
+*   A tela informa que se trata de uma pré-visualização conceitual e que nenhum arquivo é enviado ao INEP.
+*   **Validação:** ao processar arquivos fora do formato esperado, o sistema interrompe a importação e exibe "Importação interrompida. Corrija as inconsistências antes de publicar.", listando os problemas (ex.: "A prova deve conter exatamente 35 questões" e "O gabarito deve conter exatamente 35 respostas").
+### 6. Versão Celular (RNF-06)
+*   O menu vira o ícone "hambúrguer", que abre uma gaveta de navegação; cards e indicadores são empilhados em coluna única; botões têm largura total e área de toque ampliada.
+*   No simulado, o cronômetro permanece no cabeçalho e o mapa de questões abre em gaveta pelo botão "Mapa".
 ---
-
+ 
 ## 🕹️ Roteiro do Protótipo Navegável (Fluxo de Interação)
-
-Para a apresentação do projeto (Critério de Avaliação P2), o protótipo publicado no Canva segue a jornada do aluno:
-
-1. O avaliador escolhe o perfil em **"Explorar como"** (padrão: Estudante) e clica em **"Explorar protótipo"** na tela de acesso.
-2. É levado ao Dashboard Inicial, onde visualiza os indicadores e o desempenho por área.
-3. Clica em **"Iniciar novo simulado"** e passa pela tela de Configuração.
-4. Clica em **"Começar simulado"** e entra no Ambiente de Simulado, onde marca alternativas e navega entre as questões.
-5. Clica em **"Finalizar simulado"**.
-6. O fluxo chega à tela de Gabarito Comentado e Fórum, demonstrando a viabilidade da plataforma. Dali é possível voltar com "Praticar novamente".
-
-> O mesmo roteiro existe nas versões Desktop e Celular, demonstrando a compatibilidade responsiva da plataforma web.
-
+ 
+Para a apresentação do projeto (Critério de Avaliação P2), a jornada principal do aluno é:
+ 
+1. Na tela de acesso, escolher **"Estudante"** em "Explorar como" e clicar em **"Explorar protótipo"**.
+2. No **Início**, clicar em **"Iniciar Novo Simulado"**.
+3. Em **Configurar simulado**, escolher ano e área e clicar em **"Começar Simulado"**.
+4. No ambiente do simulado, marcar alternativas, navegar pelas questões ou pelo **Mapa de questões** e clicar em **"Finalizar Simulado"**.
+5. Na confirmação, ler o aviso de questões em branco e clicar em **"Confirmar envio"**.
+6. Em **Seu resultado**, ver os acertos por componente e clicar em **"Ver gabarito oficial e comentado"**.
+7. Na revisão, abrir a explicação do professor e publicar um comentário no fórum.
+8. Abrir **Meu Desempenho** para ver os indicadores e a evolução por simulado.
+Jornadas complementares: **Banco de Questões** (filtrar e abrir uma questão) e os perfis **Professor**, **Coordenador** e **Administrador**, escolhidos na tela de acesso.
+ 
 ---
-
+ 
 ## 🔎 Rastreabilidade: Protótipo × Requisitos
-
-| Requisito / Caso de Uso | Tela do protótipo | Cobertura |
+ 
+| Requisito / Caso de Uso | Onde aparece no protótipo | Cobertura |
 | :--- | :--- | :--- |
-| `UC-01` / `RF-01`, `RF-02` — Autenticação SSO e perfis | Tela 1: Acesso Institucional | **Parcial** (o aviso descreve o SSO Google/UOL com `@unifor.br`, mas o protótipo não autentica e usa o seletor "Explorar como"; o estado de erro para conta fora de `@unifor.br` não foi desenhado) |
-| `UC-03` / `RF-05` — Configuração de simulado | Tela 3: Configuração | **Atendido** |
-| `UC-03` / `RF-06` — Execução com cronômetro e mapa | Tela 4: Ambiente de Simulado | **Parcial** (mapa mostra só a questão atual; faltam os estados respondida/em branco; no celular o mapa ainda não aparece como gaveta) |
-| `UC-03` / `RF-07` — Submissão manual e automática | Tela 4: botão "Finalizar simulado" | **Parcial** (faltam a confirmação com alerta de questões em branco e a mensagem de tempo esgotado) |
-| `UC-03` / `RF-08` — Apuração de resultados | Tela 5: resumo do resultado | **Parcial** (exibe o total; falta a separação por Formação Geral e Componente Específico) |
-| `UC-04` / `RF-09` — Gabarito oficial e comentado | Tela 5: resolução e explicação | **Parcial** (falta destacar a alternativa marcada pelo estudante como acerto/erro) |
-| `UC-05` / `RF-11` — Fórum da questão | Tela 5: "Aprenda em comunidade" | **Atendido** |
-| `UC-06` / `RF-13` — Dashboard do estudante | Tela 2: Dashboard | **Parcial** (faltam o total de questões resolvidas e o gráfico de evolução por simulado) |
-| `UC-02` / `RF-03`, `RF-04` — Banco de questões | — | **Não contemplado** no protótipo (item de menu e telas a desenhar) |
-| `UC-04` / `RF-10`, `UC-05` / `RF-12`, `UC-06` / `RF-14`, `UC-07` / `RF-15` — Perfis Professor, Coordenador e Administrador | — | **Fora do escopo do protótipo** (a prototipação cobre o perfil Estudante) |
-
+| `UC-01` / `RF-01` — Autenticação SSO | Tela de Acesso Institucional | **Parcial** (o aviso descreve o SSO Google/UOL com `@unifor.br`, mas o protótipo não autentica; o erro para conta fora do domínio não foi desenhado) |
+| `UC-01` / `RF-02` — Controle de acesso por perfil | Campo "Explorar como" e menus distintos por perfil | **Atendido** |
+| `UC-02` / `RF-03` — Pesquisa e filtragem de questões | Banco de Questões | **Atendido** (filtros, contador, limpar filtros e estado vazio) |
+| `UC-02` / `RF-04` — Resolução avulsa | Abrir questão no Banco | **Atendido** |
+| `UC-03` / `RF-05` — Configuração de simulado | Configurar simulado | **Atendido** |
+| `UC-03` / `RF-06` — Cronômetro e mapa de questões | Ambiente do Simulado | **Atendido** |
+| `UC-03` / `RF-07` — Submissão manual e automática | Confirmação de envio | **Parcial** (confirmação com alerta de questões em branco demonstrada; o envio automático ao zerar o cronômetro não foi demonstrado) |
+| `UC-03` / `RF-08` — Apuração e histórico | Resultado do Simulado | **Atendido** (total e por componente, com registro no histórico) |
+| `UC-04` / `RF-09` — Gabarito oficial e comentado | Revisão da Questão | **Atendido** |
+| `UC-04` / `RF-10` — Cadastro e edição do comentário pelo professor | — | **Não demonstrado** |
+| `UC-05` / `RF-11` — Fórum da questão | Fórum da Questão | **Atendido** |
+| `UC-05` / `RF-12` — Moderação de comentários | — | **Não demonstrado** |
+| `UC-06` / `RF-13` — Dashboard do estudante | Início e Meu Desempenho | **Atendido** |
+| `UC-06` / `RF-14` — Dashboard docente e institucional | Desempenho das Disciplinas e Painel Institucional | **Parcial** (filtros por área, curso e semestre; não há filtro por edição do simulado) |
+| `UC-07` / `RF-15` — Importação de provas do INEP | Importar Provas INEP | **Parcial** (formulário e validação com mensagem de erro demonstrados; pré-visualização de uma importação válida, ajuste manual, publicação e alerta de prova duplicada não demonstrados) |
+| `RNF-06` — Web responsiva com compatibilidade para celular | Visualização Desktop e Celular | **Atendido** |
+ 
 ---
-
+ 
 ## ⚠️ Escopo e Limitações do Protótipo
-
-*   Os dados (indicadores, resultado, comentários) são **ilustrativos** e as questões são autorais, apenas para demonstrar a interface.
-*   O cronômetro é estático; a contagem real e a sincronização com o servidor (RNF-04) pertencem à implementação.
-*   O protótipo cobre apenas o perfil **Estudante**; as telas de Professor, Coordenador e Administrador são tratadas nos casos de uso do SRS.
-*   Os itens marcados como **Parcial** ou **Não contemplado** na matriz acima são evoluções previstas para o protótipo.
+ 
+*   Os dados (indicadores, resultados, comentários, painéis de professor e coordenador) são **fictícios**; os painéis agregados não derivam das respostas registradas no protótipo.
+*   O protótipo não autentica usuários e não envia dados a nenhum servidor.
+*   A persistência real do progresso, a sincronização do cronômetro com o servidor (`RNF-04`) e o desempenho (`RNF-03`) pertencem à implementação.
+*   Os itens marcados como **Parcial** ou **Não demonstrado** na matriz são evoluções previstas para o protótipo.
+ 
