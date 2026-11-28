@@ -13,21 +13,22 @@ O **Prepara ENADE** propõe um ambiente único de preparação, que oferece:
 - 📚 **Banco de questões:** consulta por ano, área/curso, componente (Formação Geral ou Conhecimento Específico) e palavra-chave.
 - ⏱️ **Simulados:** provas de 35 questões (8 de Formação Geral e 27 de Conhecimento Específico) com cronômetro de 4 horas e envio automático ao fim do tempo.
 - 💬 **Gabaritos comentados e fóruns:** explicação elaborada por professores e discussão vinculada a cada questão.
-- 📊 **Dashboards de desempenho:** painéis individuais para o estudante e painéis agregados e anonimizados para professores e coordenadores.
+- 📊 **Dashboards de desempenho:** painéis individuais para o estudante e painéis agregados e anonimizados por disciplina (professores) e por curso e disciplina (coordenadores).
+- 🗂️ **Cadastros acadêmicos:** cursos e usuários (administrador), disciplinas (coordenador) e questões (professor). A importação de provas do INEP é feita pelo professor.
 ## 🎯 Escopo e Decisões do Projeto
  
 - **Plataforma exclusivamente web:** o sistema é acessado pelo navegador, com layout **responsivo** para celulares e tablets. Não há aplicativo nativo.
-- **Acesso institucional:** o login é feito por SSO (Google Workspace / UOL) e restrito a contas `@unifor.br`. Isso permite identificar o perfil de cada usuário, garantir a autoria dos comentários e proteger os dados de desempenho conforme a **LGPD**, sem armazenar senhas.
+- **Acesso institucional:** o login é feito por SSO (Google Workspace / UOL) e restrito a contas `@unifor.br` previamente cadastradas pelo administrador. Isso permite identificar o perfil de cada usuário, garantir a autoria dos comentários e proteger os dados de desempenho conforme a **LGPD**, sem armazenar senhas.
 - **Projeto conceitual:** esta etapa cobre documentação, arquitetura e prototipação. Não há implementação de código-fonte do sistema.
-- **Conteúdo:** as questões oficiais vêm das provas públicas do INEP, e a fonte é sempre preservada. No protótipo, os enunciados são fictícios.
+- **Conteúdo:** as questões oficiais vêm das provas públicas do INEP, e a fonte é sempre preservada; professores também podem cadastrar questões, identificadas como autorais. No protótipo, os enunciados são fictícios.
 ## 👥 Perfis de Usuário
  
 | Perfil | O que faz no sistema |
 | :--- | :--- |
 | **Estudante** | Resolve simulados e questões avulsas, consulta gabaritos comentados, participa do fórum e acompanha o próprio desempenho. |
-| **Professor** | Comenta gabaritos, modera o fórum e analisa o desempenho agregado das disciplinas. |
-| **Coordenador de Curso** | Consulta indicadores agregados e anonimizados por curso e semestre. |
-| **Administrador** | Importa provas e gabaritos do INEP e mantém o catálogo de questões. |
+| **Professor** | Importa provas do INEP, cadastra questões, comenta gabaritos, modera o fórum e analisa o desempenho por disciplina. |
+| **Coordenador de Curso** | Cadastra as disciplinas do curso e consulta indicadores anonimizados por curso e disciplina. |
+| **Administrador** | Cadastra cursos e usuários com seus vínculos e mantém o catálogo de questões. |
  
 ## ✨ Funcionalidades
  
@@ -40,6 +41,9 @@ O **Prepara ENADE** propõe um ambiente único de preparação, que oferece:
 | **F-05** | Fórum por questão | Média |
 | **F-06** | Painéis de desempenho | Essencial |
 | **F-07** | Importação de provas do INEP | Essencial |
+| **F-08** | Gestão de cursos e usuários | Essencial |
+| **F-09** | Gestão de disciplinas do curso | Essencial |
+| **F-10** | Cadastro de questões pelo professor | Essencial |
  
 ## 📂 Estrutura do Repositório
  
@@ -59,14 +63,15 @@ O **Prepara ENADE** propõe um ambiente único de preparação, que oferece:
 * **[Documento de Visão, Stakeholders e Requisitos](docs/01_visao_e_requisitos.md):** problema, objetivos, partes interessadas, atores, necessidades, funcionalidades priorizadas e regras de negócio, com base em pesquisa exploratória e análise documental.
 * **[Modelagem UML](docs/02_diagramas_uml.md):** diagramas de Casos de Uso, Componentes e Implantação e mapa da jornada do estudante, em sintaxe Mermaid.
 ### Trabalho P2 — Especificação Formal e Prototipação
-* **[Especificação de Requisitos (SRS)](docs/03_srs_ieee_830.md):** documento no padrão IEEE 830 com requisitos funcionais (RF-01 a RF-15), regras de negócio (RN-01 a RN-05), requisitos não-funcionais (RNF-01 a RNF-07), casos de uso detalhados (UC-01 a UC-07) e matriz de rastreabilidade.
+* **[Especificação de Requisitos (SRS)](docs/03_srs_ieee_830.md):** documento no padrão IEEE 830 com requisitos funcionais (RF-01 a RF-20), regras de negócio (RN-01 a RN-09), requisitos não-funcionais (RNF-01 a RNF-07), casos de uso detalhados (UC-01 a UC-10) e matriz de rastreabilidade.
 * **[Protótipos de Interface](docs/04_prototipos.md):** descrição das telas do protótipo web interativo para os quatro perfis, com a cobertura dos requisitos.
 ## 🖥️ Protótipo Interativo
  
 - **Acesse:** [Protótipo web Prepara ENADE (Canva)](https://gazelle-853dkc.my.canva.site/)
-- Na tela inicial, escolha o perfil em **"Explorar como"** (Estudante, Professor, Coordenador ou Administrador) e clique em **"Explorar protótipo"**. Não há autenticação real e todos os dados são fictícios.
-- Jornada sugerida para o Estudante: **Iniciar Novo Simulado → Começar Simulado → Finalizar → Ver gabarito comentado → Meu Desempenho**.
+- Na tela inicial, escolha o perfil em **"Explorar o perfil de"** (Estudante, Professor, Coordenador ou Administrador) e clique em **"Explorar protótipo"**. Não há autenticação real e todos os dados são fictícios.
+- Jornada sugerida para o Estudante: **Simulados → Começar simulado → Entregar simulado → Ver gabarito comentado → Meu desempenho**.
 - O protótipo pode ser visualizado em Desktop e em Celular.
+- Os cadastros e os painéis já aparecem no protótipo; as pendências estão listadas em [Protótipos de Interface](docs/04_prototipos.md).
 ## 🔗 Rastreabilidade
  
 Os artefatos usam identificadores que se conectam entre si: **Necessidade (NEC) → Funcionalidade (F) → Caso de Uso (UC) → Requisito Funcional (RF) → Tela do protótipo**. A matriz completa está na seção 4 do [SRS](docs/03_srs_ieee_830.md), e a cobertura dos requisitos pelo protótipo está em [Protótipos de Interface](docs/04_prototipos.md).
@@ -84,4 +89,5 @@ Os artefatos usam identificadores que se conectam entre si: **Necessidade (NEC) 
  
 * **Professor Responsável:** Marcelo Bezerra ([@marcelobezerra-dotcom](https://github.com/marcelobezerra-dotcom))
 * **Instituição:** Universidade de Fortaleza (UNIFOR) – Semestre 2026.2
+ 
  
