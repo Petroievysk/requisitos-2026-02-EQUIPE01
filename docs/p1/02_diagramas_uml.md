@@ -2,7 +2,7 @@
  
 > **Projeto de Extensão — Plataforma de Gestão do Conhecimento e Aprendizagem (ENADE)**
 >
-> Artefatos da Sprint 1 (revisados em 22/11/2026 para plataforma **exclusivamente web, com layout responsivo para celular**): Diagramas de Casos de Uso, Componentes e Implantação.
+> Artefatos da Sprint 1 (revisados em 28/11/2026: cadastros acadêmicos e de questões; plataforma **exclusivamente web, com layout responsivo para celular**): Diagramas de Casos de Uso, Componentes e Implantação.
  
 ## 1. Diagrama de Casos de Uso
  
@@ -29,6 +29,9 @@ flowchart LR
     UC5(["F-05: Interagir no Fórum da Questão"])
     UC6(["F-06: Visualizar Painel de Desempenho"])
     UC7(["F-07: Importar Provas e Questões"])
+    UC8(["F-08: Gerenciar Cursos e Usuários"])
+    UC9(["F-09: Gerenciar Disciplinas do Curso"])
+    UC10(["F-10: Cadastrar Questões"])
   end
  
   %% Relacionamentos Estudante
@@ -42,15 +45,18 @@ flowchart LR
   %% Relacionamentos Coordenador e Professor
   COORD --> UC1
   COORD --> UC6
+  COORD --> UC9
   PROF --> UC1
   PROF --> UC2
   PROF --> UC4
   PROF --> UC5
   PROF --> UC6
+  PROF --> UC7
+  PROF --> UC10
  
-  %% Relacionamentos Administrador e Externos
+  %% Relacionamentos Administrador e Sistemas Externos
   ADMIN --> UC1
-  ADMIN --> UC7
+  ADMIN --> UC8
  
   UC1 --- SSO
   UC7 --- INEP
@@ -65,11 +71,12 @@ graph TB
     subgraph Camada_Cliente["🖥️ Camada de Apresentação (Frontend Web Responsivo)"]
         UI_Layout["Layout Responsivo<br/>(Desktop e Celular)"]
         UI_Acesso["Módulo de Acesso<br/>(Login SSO e Perfis)"]
-        UI_Banco["Módulo de Questões<br/>(Filtros e Gabarito Comentado)"]
+        UI_Banco["Módulo de Questões<br/>(Filtros, Cadastro e Gabarito Comentado)"]
         UI_Simulado["Módulo de Simulação<br/>(Cronômetro e Questões)"]
         UI_Dashboard["Módulo de Dashboards<br/>(Gráficos de Desempenho)"]
         UI_Forum["Módulo do Fórum<br/>(Comentários por Questão)"]
-        UI_Admin["Módulo Administrativo<br/>(Importação de Provas)"]
+        UI_Admin["Módulo de Importação<br/>(Provas e Questões do INEP)"]
+        UI_Academico["Módulo Acadêmico<br/>(Cursos, Usuários e Disciplinas)"]
     end
  
     subgraph Camada_Servidor["⚙️ Camada de Aplicação (Backend API REST)"]
@@ -77,10 +84,11 @@ graph TB
         Motor["Motor de Simulados e Correção"]
         Analytics["Motor de Analytics e Estatísticas"]
         Conteudo["Gerenciador de Questões e Importação"]
+        Academico["Gerenciador Acadêmico<br/>(Cadastros e Vínculos)"]
     end
  
     subgraph Camada_Dados["💾 Persistência de Dados"]
-        DB["Banco de Dados Relacional<br/>(Questões, Usuários, Histórico)"]
+        DB["Banco de Dados Relacional<br/>(Cursos, Disciplinas, Usuários,<br/>Questões e Histórico)"]
     end
  
     subgraph Sistemas_Externos["🔗 Integrações Externas"]
@@ -95,18 +103,21 @@ graph TB
     UI_Acesso --> Auth
     UI_Banco --> Conteudo
     UI_Admin --> Conteudo
+    UI_Academico --> Academico
     UI_Layout -.-> UI_Simulado
     UI_Layout -.-> UI_Dashboard
     UI_Layout -.-> UI_Forum
     UI_Layout -.-> UI_Acesso
     UI_Layout -.-> UI_Banco
     UI_Layout -.-> UI_Admin
+    UI_Layout -.-> UI_Academico
  
     %% Conexões Backend -> Dados
     Auth --> DB
     Motor --> DB
     Analytics --> DB
     Conteudo --> DB
+    Academico --> DB
  
     %% Conexões Backend -> Externo
     Auth --> API_SSO
@@ -182,4 +193,5 @@ journey
       Verificar atualização do dashboard de desempenho: 5
       Comparar resultados por área de conhecimento: 4
 ```
+ 
  
