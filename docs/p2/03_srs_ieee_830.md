@@ -8,7 +8,7 @@
 >
 > **Sprint:** 2 (Trabalho P2)
 >
-> **Versão:** 2.3 — 25/11/2026 (revisão geral: plataforma exclusivamente web com compatibilidade para celular; requisitos e rastreabilidade alinhados ao protótipo)
+> **Versão:** 2.7 — 28/11/2026 (gestão de cursos, usuários, disciplinas e questões; painéis por disciplina; importação de questões do INEP pelo professor; status do protótipo revisado)
  
 ---
  
@@ -18,7 +18,7 @@
 Este documento especifica os requisitos funcionais, não-funcionais, regras de negócio e casos de uso detalhados do sistema **Prepara ENADE**. O objetivo é fornecer uma descrição formal, completa e rastreável da plataforma web responsiva (acessível por desktop e celular via navegador) focada em gestão de aprendizagem e preparação para o exame, servindo de base para a arquitetura, prototipagem e validação acadêmica.
  
 ### 1.2 Escopo
-O **Prepara ENADE** é uma aplicação exclusivamente web, sem aplicativo nativo, com interface responsiva para uso em celulares e tablets. Ele permitirá que os estudantes de graduação da Unifor realizem simulados cronometrados com questões oficiais de edições anteriores do ENADE, consultem questões avulsas por filtros, acessem gabaritos comentados por docentes e interajam em fóruns de discussão vinculados a cada questão. Além disso, o sistema disponibilizará painéis analíticos (dashboards) de desempenho para estudantes, professores e coordenadores de curso, integrando-se ao serviço de autenticação institucional (SSO) da Unifor e à base pública de exames do INEP.
+O **Prepara ENADE** é uma aplicação exclusivamente web, sem aplicativo nativo, com interface responsiva para uso em celulares e tablets. Ele permitirá que os estudantes de graduação da Unifor realizem simulados cronometrados com questões oficiais de edições anteriores do ENADE, consultem questões avulsas por filtros, acessem gabaritos comentados por docentes e interajam em fóruns de discussão vinculados a cada questão. O administrador manterá cursos e usuários, o coordenador cadastrará as disciplinas do curso e o professor poderá cadastrar questões e importar as do INEP. Além disso, o sistema disponibilizará painéis analíticos (dashboards) de desempenho para estudantes, professores e coordenadores de curso, integrando-se ao serviço de autenticação institucional (SSO) da Unifor e à base pública de exames do INEP.
  
 ### 1.3 Definições, Acrônimos e Abreviações
 * **ENADE:** Exame Nacional de Desempenho dos Estudantes.
@@ -35,7 +35,7 @@ O **Prepara ENADE** é uma aplicação exclusivamente web, sem aplicativo nativo
 Este documento está organizado em quatro seções:
 1. **Introdução:** Contextualiza o propósito, escopo e terminologia do documento.
 2. **Descrição Geral:** Apresenta a perspectiva do produto, funções principais, perfis de usuários e restrições.
-3. **Requisitos Detalhados:** Especifica os Requisitos Funcionais (`RF-01` a `RF-15`), Regras de Negócio (`RN-01` a `RN-05`), Requisitos Não-Funcionais (`RNF-01` a `RNF-07`) e o detalhamento formal de todos os Casos de Uso (`UC-01` a `UC-07`).
+3. **Requisitos Detalhados:** Especifica os Requisitos Funcionais (`RF-01` a `RF-20`), Regras de Negócio (`RN-01` a `RN-09`), Requisitos Não-Funcionais (`RNF-01` a `RNF-07`) e o detalhamento formal de todos os Casos de Uso (`UC-01` a `UC-10`).
 4. **Matriz de Rastreabilidade e Consistência:** Comprova o alinhamento entre o Documento de Visão (`01_visao_e_requisitos.md`), os Diagramas UML (`02_diagramas_uml.md`), os Requisitos e os Protótipos (`04_prototipos.md`).
 ---
  
@@ -45,18 +45,21 @@ Este documento está organizado em quatro seções:
 O **Prepara ENADE** opera como uma aplicação web responsiva (single-page ou multipágina, acessada pelo navegador, sem aplicativo nativo) integrada ao ecossistema institucional da Unifor (Unifor Online / Google Workspace) para autenticação de usuários via protocolo OAuth 2.0 / SSO, garantindo acesso restrito à comunidade acadêmica. O acervo de provas e questões objetivas é alimentado a partir dos cadernos públicos divulgados pelo INEP.
  
 ### 2.2 Funções do Produto
-* **Autenticação Institucional (`F-01`):** Controle de acesso baseado em perfis (Estudante, Professor, Coordenador e Administrador) via credencial `@unifor.br`.
+* **Autenticação Institucional (`F-01`):** Controle de acesso baseado em perfis (Estudante, Professor, Coordenador e Administrador) via credencial `@unifor.br` de usuário previamente cadastrado.
 * **Consulta e Filtragem de Questões (`F-02`):** Pesquisa facetada no banco de questões por ano, curso/área, componente (Formação Geral ou Conhecimento Específico) e palavra-chave.
 * **Motor de Simulados Cronometrados (`F-03`):** Geração e execução de simulados com contagem regressiva e submissão automática ao término do tempo.
 * **Gabarito Comentado (`F-04`):** Exibição da alternativa correta e de justificativas pedagógicas elaboradas por professores.
 * **Fórum Colaborativo por Questão (`F-05`):** Espaço de discussão vinculado a cada questão para esclarecimento de dúvidas entre estudantes e docentes.
-* **Painéis Analíticos de Desempenho (`F-06`):** Relatórios e gráficos estatísticos individuais (Estudante) e consolidados por disciplina/curso (Professor e Coordenador).
-* **Importação de Provas do INEP (`F-07`):** Módulo administrativo para ingestão, catalogação e publicação de novas provas e gabaritos oficiais.
+* **Painéis Analíticos de Desempenho (`F-06`):** Relatórios e gráficos individuais (Estudante), por disciplina (Professor) e por curso e disciplina (Coordenador).
+* **Importação de Provas do INEP (`F-07`):** Módulo para ingestão, catalogação e publicação de provas e gabaritos oficiais, usado pelo professor.
+* **Gestão de Cursos e Usuários (`F-08`):** Cadastro, pelo administrador, de cursos e de usuários com seus vínculos.
+* **Gestão de Disciplinas (`F-09`):** Cadastro, pelo coordenador, das disciplinas do seu curso.
+* **Cadastro de Questões (`F-10`):** Cadastro, pelo professor, de questões das disciplinas vinculadas.
 ### 2.3 Características dos Usuários
-* **Estudante (`AT-01`):** Aluno regularmente matriculado na Unifor. Possui familiaridade básica com aplicações web, acessando tanto por computador quanto pelo navegador do celular, e busca praticidade, feedback imediato e acompanhamento de evolução.
-* **Coordenador de Curso (`AT-02`):** Gestor acadêmico com foco analítico, interessado em indicadores consolidados por turma, semestre e área de conhecimento para planejamento pedagógico.
-* **Professor (`AT-03`):** Docente vinculado a disciplinas/cursos, responsável por comentar gabaritos, moderar fóruns e analisar lacunas de aprendizagem de suas turmas.
-* **Administrador do Sistema (`AT-04`):** Usuário técnico responsável pela importação de provas do INEP, manutenção do catálogo de questões e gestão de permissões.
+* **Estudante (`AT-01`):** Aluno regularmente matriculado na Unifor e vinculado a um curso. Possui familiaridade básica com aplicações web, acessando tanto por computador quanto pelo navegador do celular, e busca praticidade, feedback imediato e acompanhamento de evolução.
+* **Coordenador de Curso (`AT-02`):** Gestor acadêmico vinculado a um curso, responsável por cadastrar suas disciplinas e interessado em indicadores consolidados por curso, disciplina e semestre.
+* **Professor (`AT-03`):** Docente vinculado a curso e disciplinas, responsável por importar e cadastrar questões, comentar gabaritos, moderar fóruns e analisar lacunas de aprendizagem por disciplina.
+* **Administrador do Sistema (`AT-04`):** Usuário técnico responsável pelo cadastro de cursos e usuários (com vínculos e permissões) e pela manutenção do catálogo de questões.
 ### 2.4 Restrições
 * **R-01 (Escopo Conceitual):** Na etapa atual da disciplina, o projeto contempla a engenharia de requisitos, modelagem arquitetural e prototipação navegável (protótipo web interativo), não havendo implantação em ambiente de produção.
 * **R-02 (Conformidade Legal - LGPD):** Dados individuais de desempenho de estudantes não podem ser expostos nominalmente a terceiros; visões gerenciais de coordenação devem respeitar critérios de anonimização quando aplicável.
@@ -71,30 +74,39 @@ O **Prepara ENADE** opera como uma aplicação web responsiva (single-page ou mu
 | ID | Requisito Funcional | Descrição Detalhada (Entrada, Processamento e Saída) | Atores | Prioridade | Rastreabilidade |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **RF-01** | **Autenticação via SSO Institucional** | O sistema deve redirecionar o usuário para o provedor de identidade institucional (Google Workspace / UOL via OAuth 2.0), validar se o e-mail pertence ao domínio ativo `@unifor.br` e iniciar uma sessão autenticada com token válido. | Todos os perfis | Essencial | `F-01` / `UC-01` |
-| **RF-02** | **Controle de Acesso Baseado em Perfil (RBAC)** | Após a autenticação, o sistema deve identificar o vínculo institucional do usuário (Estudante, Professor, Coordenador ou Administrador) e restringir menus, telas e operações de acordo com as permissões de seu perfil. | Todos os perfis | Essencial | `F-01` / `UC-01` |
-| **RF-03** | **Pesquisa e Filtragem Facetada de Questões** | O sistema deve permitir consultar o banco de questões aplicando filtros combinados por: Ano da Edição, Curso/Área do ENADE, Componente (Formação Geral ou Conhecimento Específico) e busca textual por palavra-chave no enunciado, retornando lista paginada. | Estudante, Professor | Essencial | `F-02` / `UC-02` |
+| **RF-02** | **Controle de Acesso Baseado em Perfil (RBAC)** | Após a autenticação, o sistema deve localizar o cadastro do usuário pelo e-mail institucional, identificar seu perfil (Estudante, Professor, Coordenador ou Administrador) e vínculos (curso e disciplinas) e restringir menus, telas, dados e operações a essas permissões. | Todos os perfis | Essencial | `F-01` / `UC-01` |
+| **RF-03** | **Pesquisa e Filtragem Facetada de Questões** | O sistema deve permitir consultar o banco de questões (oficiais e autorais) aplicando filtros combinados por: Ano da Edição, Curso/Área do ENADE, Componente (Formação Geral ou Conhecimento Específico) e busca textual por palavra-chave no enunciado, retornando lista paginada com a origem de cada questão (INEP ou autoral). | Estudante, Professor | Essencial | `F-02` / `UC-02` |
 | **RF-04** | **Resolução Avulsa de Questões** | O sistema deve permitir que o estudante selecione qualquer questão filtrada fora do modo simulado, marque uma alternativa (`A` a `E`), submeta a resposta individualmente e receba retorno imediato de acerto ou erro, indicado por rótulo textual (ex.: "Sua resposta: A · Erro") e destaque visual, sem depender apenas de cor. | Estudante | Importante | `F-02` / `UC-02` |
 | **RF-05** | **Configuração de Simulado** | O sistema deve disponibilizar tela de parametrização onde o estudante seleciona o Ano da Prova e a Área de Conhecimento, exibindo antes do início o resumo das regras da prova (35 questões e tempo limite de 4 horas). | Estudante | Essencial | `F-03` / `UC-03` |
 | **RF-06** | **Execução de Simulado com Cronômetro e Mapa de Questões** | Ao iniciar o simulado, o sistema deve carregar as 35 questões (8 de Formação Geral e 27 de Componente Específico), exibir cronômetro regressivo (`04:00:00`) fixo no topo, permitir navegação sequencial ("Anterior"/"Próxima") ou direta via mapa de questões de status (respondida/em branco) — exibido como painel lateral em telas grandes e como gaveta recolhível em celulares — e salvar respostas automaticamente. | Estudante | Essencial | `F-03` / `UC-03` |
 | **RF-07** | **Submissão Manual e Automática por Tempo Esgotado** | O sistema deve permitir que o estudante finalize o simulado manualmente a qualquer momento (com alerta caso existam questões em branco) e deve executar a submissão automática imediata caso o cronômetro atinja `00:00:00`, bloqueando alterações posteriores. | Estudante | Essencial | `F-03` / `UC-03` |
 | **RF-08** | **Apuração de Resultados e Persistência de Histórico** | Ao encerrar o simulado, o sistema deve contabilizar o total e o percentual de acertos separados por Formação Geral e Componente Específico (considerando questões em branco como erro) e gravar a tentativa no histórico permanente do estudante. | Estudante | Essencial | `F-03` / `UC-03` |
-| **RF-09** | **Consulta de Gabarito Oficial e Comentado** | Após a finalização de um simulado ou resposta avulsa, o sistema deve exibir a alternativa oficial correta do INEP e uma seção expansível com a resolução comentada elaborada por professores. | Estudante, Professor | Essencial | `F-04` / `UC-04` |
-| **RF-10** | **Cadastro e Edição de Gabarito Comentado** | O sistema deve disponibilizar um editor de texto formatado para que professores vinculados à área de conhecimento cadastrem ou atualizem a justificativa pedagógica das questões, registrando nome do docente e data da atualização. | Professor | Importante | `F-04` / `UC-04` |
+| **RF-09** | **Consulta de Gabarito Oficial e Comentado** | Após a finalização de um simulado ou resposta avulsa, o sistema deve exibir a alternativa correta (gabarito oficial do INEP ou, nas questões autorais, o definido pelo professor) e uma seção expansível com a resolução comentada elaborada por professores. | Estudante, Professor | Essencial | `F-04` / `UC-04` |
+| **RF-10** | **Cadastro e Edição de Gabarito Comentado** | O sistema deve disponibilizar um editor de texto formatado para que professores vinculados à disciplina da questão (ou, em questões sem disciplina, ao curso/área) cadastrem ou atualizem a justificativa pedagógica das questões, registrando nome do docente e data da atualização. | Professor | Importante | `F-04` / `UC-04` |
 | **RF-11** | **Publicação de Comentários no Fórum da Questão** | O sistema deve exibir uma thread de discussão cronológica abaixo de cada questão liberada, permitindo que estudantes e professores publiquem dúvidas, respostas e comentários com identificação de nome, selo de perfil e data/hora. | Estudante, Professor | Importante | `F-05` / `UC-05` |
 | **RF-12** | **Moderação de Comentários no Fórum** | O sistema deve permitir que professores e administradores ocultem ou removam postagens que contenham spam, linguagem imprópria ou conteúdo fora do escopo acadêmico, mantendo registro de auditoria da moderação. | Professor, Administrador | Desejável | `F-05` / `UC-05` |
 | **RF-13** | **Dashboard Analítico Individual (Estudante)** | O sistema deve gerar painel visual para o estudante contendo média geral de acertos, total de questões resolvidas, gráfico de radar/barras comparando Formação Geral vs. Conhecimento Específico e gráfico de evolução histórica por simulado. | Estudante | Essencial | `F-06` / `UC-06` |
-| **RF-14** | **Dashboard Analítico Docente e Institucional** | O sistema deve gerar painéis consolidados para professores (por disciplina/área vinculada) e coordenadores (por curso/semestre), destacando taxa de adesão, média geral e ranking dos tópicos com maior índice de erro, respeitando a anonimização da LGPD. | Professor, Coordenador | Essencial | `F-06` / `UC-06` |
-| **RF-15** | **Importação Estruturada de Provas do INEP** | O sistema deve fornecer módulo administrativo para upload de provas e gabaritos oficiais do INEP (JSON/CSV/PDF processado), realizando validação estrutural (enunciado, imagens, 5 alternativas e gabarito), pré-visualização para ajustes manuais e publicação no banco. | Administrador | Essencial | `F-07` / `UC-07` |
+| **RF-14** | **Dashboard Analítico Docente e Institucional** | O sistema deve gerar painéis consolidados para professores, **por disciplina vinculada**, e para coordenadores, **por curso e por disciplina** do seu curso (com filtros de semestre e edição do simulado), destacando taxa de adesão, média geral e ranking dos tópicos com maior índice de erro, respeitando a anonimização da LGPD. | Professor, Coordenador | Essencial | `F-06` / `UC-06` |
+| **RF-15** | **Importação Estruturada de Provas do INEP** | O sistema deve fornecer módulo de importação para upload de provas e gabaritos oficiais do INEP (JSON/CSV/PDF processado), vinculados a um curso cadastrado, realizando validação estrutural (enunciado, imagens, 5 alternativas e gabarito), pré-visualização para ajustes manuais e publicação no banco. O professor importa somente para os cursos a que está vinculado. | Professor | Essencial | `F-07` / `UC-07` |
+| **RF-16** | **Cadastro de Cursos** | O sistema deve permitir cadastrar, consultar, editar e inativar cursos (nome, código e área do ENADE), impedindo código duplicado. | Administrador | Essencial | `F-08` / `UC-08` |
+| **RF-17** | **Cadastro de Usuários e Vínculos** | O sistema deve permitir cadastrar, consultar, editar e inativar usuários (nome, e-mail `@unifor.br` e perfil), exigindo os vínculos do perfil: Estudante, um curso; Professor, curso e disciplinas; Coordenador, um curso. | Administrador | Essencial | `F-08` / `UC-08` |
+| **RF-18** | **Cadastro de Disciplinas do Curso** | O sistema deve permitir que o coordenador cadastre, consulte, edite e inative as disciplinas (nome e código) do curso ao qual está vinculado. | Coordenador | Essencial | `F-09` / `UC-09` |
+| **RF-19** | **Cadastro de Questões pelo Professor** | O sistema deve permitir que o professor cadastre e edite questões de suas disciplinas, informando disciplina, tópico, componente, enunciado, imagem (opcional), 5 alternativas (`A` a `E`), gabarito e explicação (opcional), publicando-as no banco como questões autorais. | Professor | Essencial | `F-10` / `UC-10` |
+| **RF-20** | **Classificação de Questões Importadas por Disciplina** | O sistema deve permitir que o professor associe questões de Conhecimento Específico importadas do INEP a uma disciplina vinculada e a um tópico, sem alterar enunciado, alternativas ou gabarito, para que componham os painéis por disciplina. | Professor | Importante | `F-10` / `UC-10` |
  
 ### 3.2 Regras de Negócio (RN)
  
-> **Correspondência com o Documento de Visão:** as regras abaixo consolidam e substituem a numeração do `01_visao_e_requisitos.md`. A RN-01 da Visão (direitos autorais e LGPD) corresponde à `RN-05` deste documento; a RN-02 da Visão (cronômetro) corresponde às `RN-02` e `RN-03`; e as RN-03 e RN-04 da Visão (projeto conceitual e plataforma exclusivamente web) viraram as restrições `R-01` e `R-04` da seção 2.4.
+> **Correspondência com o Documento de Visão:** as regras `RN-01` a `RN-05` consolidam e substituem a numeração do `01_visao_e_requisitos.md`. A RN-01 da Visão (direitos autorais e LGPD) corresponde à `RN-05` deste documento; a RN-02 da Visão (cronômetro) corresponde às `RN-02` e `RN-03`; e as RN-03 e RN-04 da Visão (projeto conceitual e plataforma exclusivamente web) viraram as restrições `R-01` e `R-04` da seção 2.4. As RN-05 (cadastro e vínculos) e RN-06 (questões de professores) da Visão correspondem, respectivamente, às `RN-06` a `RN-08` e à `RN-09` deste documento.
  
 * **RN-01 (Exclusividade Institucional):** Somente usuários autenticados com domínio institucional ativo da Unifor (`@unifor.br`) podem acessar o sistema.
-* **RN-02 (Estrutura Padrão do Simulado Completo):** Um simulado completo corresponde a 35 questões objetivas (8 de Formação Geral e 27 de Componente Específico) com tempo limite de 4 horas (240 minutos).
+* **RN-02 (Estrutura Padrão do Simulado Completo):** Um simulado completo corresponde a 35 questões objetivas oficiais do INEP (8 de Formação Geral e 27 de Componente Específico) com tempo limite de 4 horas (240 minutos).
 * **RN-03 (Submissão Irreversível e Auto-envio):** Após a finalização do simulado — seja por ação do estudante ou por esgotamento do cronômetro — as respostas são bloqueadas para edição e computadas definitivamente no histórico. Questões não respondidas são contabilizadas como erro.
 * **RN-04 (Liberação do Gabarito Comentado):** Durante a execução de um simulado ativo, o gabarito oficial e os comentários permanecem ocultos, sendo liberados somente após a submissão da prova.
 * **RN-05 (Direitos Autorais e Anonimização LGPD):** Toda questão importada deve manter a referência oficial do ano e caderno do INEP. Nos relatórios gerenciais de coordenadores, os dados individuais dos estudantes devem ser agregados ou anonimizados conforme diretrizes da LGPD.
+* **RN-06 (Cadastro Prévio):** O acesso exige usuário ativo, previamente cadastrado pelo Administrador, além da conta institucional (`RN-01`).
+* **RN-07 (Vínculos Obrigatórios):** Estudante pertence a um curso; Coordenador, a um curso; Professor, a um ou mais cursos e às respectivas disciplinas. Cada disciplina pertence a um curso. Cursos e disciplinas com vínculos ou histórico não são excluídos, apenas inativados.
+* **RN-08 (Escopo por Vínculo):** O Coordenador gerencia e consulta somente o seu curso e as disciplinas dele; o Professor importa provas somente para os seus cursos e cadastra questões e consulta painéis somente das suas disciplinas.
+* **RN-09 (Questões Autorais):** Questões cadastradas por professores exibem autoria e a identificação "Questão autoral", ficam disponíveis no Banco de Questões e não integram o simulado completo (`RN-02`).
 ### 3.3 Requisitos Não-Funcionais (RNF)
  
 | ID | Categoria | Requisito Não-Funcional | Critério de Aceitação / Métrica |
@@ -115,31 +127,32 @@ O **Prepara ENADE** opera como uma aplicação web responsiva (single-page ou mu
 * **Ator Secundário:** Serviço de Autenticação Institucional (Google Workspace / UOL).
 * **Pré-condições:** O usuário deve possuir uma conta institucional ativa da Unifor (`@unifor.br`) e conexão com a internet.
 * **Pós-condições:** Sessão autenticada criada com token válido e usuário redirecionado para a interface correspondente ao seu perfil.
-* **Regras de Negócio:** `RN-01`.
+* **Regras de Negócio:** `RN-01`, `RN-06`, `RN-07`.
 * **Fluxo Principal:**
   1. O usuário acessa a página inicial do **Prepara ENADE** e seleciona a opção *"Entrar com Conta Unifor (Google)"*.
   2. O sistema redireciona o navegador para o provedor de identidade institucional (OAuth 2.0).
   3. O usuário informa suas credenciais institucionais no provedor.
   4. O provedor valida as credenciais e retorna o token de autenticação ao sistema.
-  5. O sistema verifica o domínio `@unifor.br`, identifica o perfil vinculado ao usuário (Estudante, Professor, Coordenador ou Administrador) e carrega o respectivo painel inicial.
+  5. O sistema verifica o domínio `@unifor.br`, localiza o cadastro ativo do usuário, identifica o perfil (Estudante, Professor, Coordenador ou Administrador) e os vínculos e carrega o respectivo painel inicial.
 * **Fluxos Alternativos:**
   * *3a. Usuário já possui sessão ativa no Google/UOL no navegador:* O provedor valida automaticamente o vínculo e executa diretamente o passo 4.
 * **Fluxos de Exceção:**
   * *4a. Credenciais inválidas ou domínio não institucional:* O provedor recusa a autenticação ou o sistema bloqueia o acesso, exibindo a mensagem *"Acesso permitido apenas para contas institucionais @unifor.br"*.
   * *4b. Indisponibilidade do serviço SSO:* O sistema exibe mensagem informando falha temporária na autenticação institucional e orienta tentar novamente.
+  * *5a. Usuário não cadastrado ou inativo:* O sistema bloqueia o acesso e orienta procurar o administrador (`RN-06`).
 ---
  
 #### UC-02: Filtrar Banco de Questões
 * **Identificador:** UC-02 (Rastreável a `F-02`, `RF-03`, `RF-04`)
 * **Ator Primário:** Estudante, Professor.
-* **Pré-condições:** Usuário autenticado no sistema (`UC-01`) e banco de questões previamente alimentado (`UC-07`).
+* **Pré-condições:** Usuário autenticado no sistema (`UC-01`) e banco de questões previamente alimentado (`UC-07` ou `UC-10`).
 * **Pós-condições:** Lista de questões filtradas exibida na tela; caso o estudante responda uma questão avulsa, o resultado é registrado em seu histórico.
-* **Regras de Negócio:** `RN-05`.
+* **Regras de Negócio:** `RN-05`, `RN-09`.
 * **Fluxo Principal:**
   1. O usuário acessa a seção *"Banco de Questões"* no menu principal.
   2. O sistema exibe os filtros disponíveis: Ano da Prova, Área/Curso, Componente (Formação Geral ou Específico) e campo de busca por palavra-chave.
   3. O usuário seleciona os critérios desejados e clica em *"Filtrar"*.
-  4. O sistema consulta a base de dados e exibe a lista paginada de questões correspondentes, indicando ano, área e enunciado resumido.
+  4. O sistema consulta a base de dados e exibe a lista paginada de questões correspondentes, indicando origem (INEP ou autoral), ano (quando oficial), área e enunciado resumido.
   5. O usuário seleciona uma questão para visualização completa (e, no caso do Estudante, pode marcar uma alternativa para resolução avulsa e acionar o `UC-04`).
 * **Fluxos Alternativos:**
   * *3a. Limpar filtros:* O usuário aciona *"Limpar Filtros"* e o sistema retorna à listagem padrão ordenada pelas edições mais recentes.
@@ -174,20 +187,20 @@ O **Prepara ENADE** opera como uma aplicação web responsiva (single-page ou mu
 * **Ator Primário:** Estudante, Professor.
 * **Pré-condições:** Usuário autenticado (`UC-01`). Para o Estudante, o simulado deve estar finalizado (`RN-04`) ou a questão deve estar sendo visualizada em modo de estudo avulso (`UC-02`).
 * **Pós-condições:** Gabarito oficial e explicação exibidos ao usuário; caso editado pelo Professor, nova justificativa persistida na base de dados.
-* **Regras de Negócio:** `RN-04`, `RN-05`.
+* **Regras de Negócio:** `RN-04`, `RN-05`, `RN-08`, `RN-09`.
 * **Fluxo Principal (Consulta — Estudante e Professor):**
   1. Após finalizar um simulado (`UC-03`) ou abrir uma questão no banco (`UC-02`), o usuário acessa a tela de revisão da questão.
-  2. O sistema exibe o enunciado completo, a alternativa marcada pelo estudante (se houver) destacada, com o rótulo textual de acerto ou erro (ex.: "Sua resposta: A · Erro"), e a alternativa oficial correta ("Gabarito oficial").
+  2. O sistema exibe o enunciado completo, a alternativa marcada pelo estudante (se houver) destacada, com o rótulo textual de acerto ou erro (ex.: "Sua resposta: A · Erro"), e a alternativa correta ("Gabarito oficial" nas questões do INEP; "Gabarito do professor" nas autorais).
   3. O usuário expande a seção *"Gabarito Comentado / Explicação do Professor"*.
   4. O sistema apresenta a justificativa pedagógica detalhada explicando o porquê da alternativa correta e o motivo de incorreção das demais.
 * **Fluxos Alternativos:**
   * *3a. Cadastro ou Edição de Explicação (Ator: Professor):*
-    1. O professor clica no botão *"Editar Comentário Oficial"* na questão de sua área.
+    1. O professor clica no botão *"Editar Comentário Oficial"* na questão de sua disciplina (ou do seu curso/área, se a questão não tiver disciplina).
     2. O sistema abre um editor de texto formatado.
     3. O professor redige ou atualiza a resolução comentada e clica em *"Salvar Explicação"*.
     4. O sistema valida o conteúdo, registra a autoria docente e atualiza o gabarito comentado da questão.
 * **Fluxos de Exceção:**
-  * *4a. Questão ainda sem gabarito comentado:* O sistema exibe a alternativa oficial correta do INEP e informa *"Explicação comentada ainda não cadastrada por um professor para esta questão"*.
+  * *4a. Questão ainda sem gabarito comentado:* O sistema exibe a alternativa correta e informa *"Explicação comentada ainda não cadastrada por um professor para esta questão"*.
 ---
  
 #### UC-05: Interagir no Fórum da Questão
@@ -215,7 +228,7 @@ O **Prepara ENADE** opera como uma aplicação web responsiva (single-page ou mu
 * **Ator Primário:** Estudante, Professor, Coordenador.
 * **Pré-condições:** Usuário autenticado (`UC-01`).
 * **Pós-condições:** Indicadores estatísticos e gráficos renderizados conforme o perfil do usuário.
-* **Regras de Negócio:** `RN-05` (LGPD).
+* **Regras de Negócio:** `RN-05` (LGPD), `RN-08`.
 * **Fluxo Principal (Visão Estudante):**
   1. O estudante acessa a aba *"Meu Desempenho"* no menu lateral.
   2. O sistema consulta o histórico de simulados e questões avulsas do estudante.
@@ -223,47 +236,114 @@ O **Prepara ENADE** opera como uma aplicação web responsiva (single-page ou mu
 * **Fluxos Alternativos:**
   * *1a. Visão Professor:*
     1. O professor acessa a aba *"Desempenho das Disciplinas"*.
-    2. O sistema exibe os indicadores agregados das áreas/disciplinas vinculadas ao docente, destacando os temas com menor percentual de acerto pelos alunos para orientar aulas de revisão.
+    2. O professor seleciona uma de suas disciplinas.
+    3. O sistema exibe média geral, taxa de adesão, questões respondidas e os tópicos com maior índice de erro da disciplina, em dados agregados, para orientar aulas de revisão.
   * *1b. Visão Coordenador de Curso:*
-    1. O coordenador acessa a aba *"Painel Institucional do Curso"*.
-    2. O coordenador filtra por curso, semestre e edição do simulado.
-    3. O sistema exibe a média geral do curso, taxa de adesão dos estudantes e ranking de tópicos críticos, mantendo os dados individuais anonimizados conforme a LGPD (`RN-05`).
+    1. O coordenador acessa a aba *"Painel Institucional do Curso"*, já restrito ao seu curso.
+    2. O coordenador visualiza o curso inteiro ou filtra por disciplina, semestre e edição do simulado.
+    3. O sistema exibe média geral, taxa de adesão e ranking de tópicos críticos do recorte, mantendo os dados individuais anonimizados conforme a LGPD (`RN-05`).
+* **Indicadores por disciplina:** consideram as respostas, em simulados e avulsas, a questões associadas à disciplina. A adesão é a proporção de estudantes do curso que responderam ao menos uma delas.
 * **Fluxos de Exceção:**
-  * *2a. Ausência de dados históricos:* Caso o estudante ainda não tenha concluído nenhum simulado (ou não existam respostas registradas para o curso filtrado), o sistema exibe estado vazio educativo com o botão *"Iniciar Primeiro Simulado"*.
+  * *2a. Estudante sem histórico:* Caso ainda não tenha concluído nenhum simulado, o sistema exibe estado vazio educativo com o botão *"Iniciar Primeiro Simulado"*.
+  * *2b. Recorte sem respostas (Professor ou Coordenador):* O sistema informa que ainda não há dados para a disciplina ou o curso selecionado.
 ---
  
 #### UC-07: Importar Provas e Questões do INEP
 * **Identificador:** UC-07 (Rastreável a `F-07`, `RF-15`)
-* **Ator Primário:** Administrador.
+* **Ator Primário:** Professor.
 * **Ator Secundário:** Portal INEP (Fonte de dados).
-* **Pré-condições:** Usuário autenticado com perfil de Administrador (`UC-01`).
+* **Pré-condições:** Usuário autenticado com perfil de Professor (`UC-01`) e vinculado a um curso previamente cadastrado (`UC-08`).
 * **Pós-condições:** Nova edição de prova, questões, imagens e gabaritos oficiais cadastrados e disponíveis no banco de questões (`UC-02` e `UC-03`).
-* **Regras de Negócio:** `RN-02`, `RN-05`.
+* **Regras de Negócio:** `RN-02`, `RN-05`, `RN-08`.
 * **Fluxo Principal:**
-  1. O administrador acessa o módulo *"Gestão de Conteúdo > Importar Provas INEP"*.
-  2. O sistema exibe o formulário de importação solicitando: Ano da Edição, Área/Curso do ENADE, arquivo estruturado da prova (JSON/CSV/PDF processado) e arquivo de gabarito oficial.
-  3. O administrador anexa os arquivos e aciona *"Processar e Pré-visualizar"*.
+  1. O professor acessa o módulo *"Gestão de Conteúdo > Importar Provas INEP"*.
+  2. O sistema exibe o formulário de importação solicitando: Ano da Edição, Curso cadastrado (com sua Área do ENADE; apenas os vinculados ao professor), arquivo estruturado da prova (JSON/CSV/PDF processado) e arquivo de gabarito oficial.
+  3. O professor anexa os arquivos e aciona *"Processar e Pré-visualizar"*.
   4. O sistema realiza o parsing dos dados, valida a estrutura das questões (enunciado, imagens, 5 alternativas e gabarito oficial) e apresenta uma tela de conferência.
-  5. O administrador revisa os dados extraídos e clica em *"Confirmar e Publicar no Banco"*.
+  5. O professor revisa os dados extraídos e clica em *"Confirmar e Publicar no Banco"*.
   6. O sistema persiste as questões com a tag oficial da fonte INEP e exibe confirmação de sucesso.
 * **Fluxos Alternativos:**
-  * *5a. Ajuste manual antes da publicação:* Caso alguma imagem ou formatação apresente desajuste na pré-visualização, o administrador edita o item diretamente na tela de conferência antes de confirmar o passo 6.
+  * *5a. Ajuste manual antes da publicação:* Caso alguma imagem ou formatação apresente desajuste na pré-visualização, o professor edita o item diretamente na tela de conferência antes de confirmar o passo 6.
 * **Fluxos de Exceção:**
   * *4a. Arquivo corrompido ou fora do layout esperado:* O sistema interrompe a importação, destaca as linhas/questões com inconsistência (ex.: questão sem alternativa correta definida) e impede a publicação incompleta.
-  * *6a. Prova duplicada:* Caso já exista uma prova cadastrada para o mesmo Ano e Área, o sistema alerta o administrador e solicita confirmação explícita para sobrescrever ou cancelar.
+  * *6a. Prova duplicada:* Caso já exista uma prova cadastrada para o mesmo Ano e Área, o sistema alerta o professor e solicita confirmação explícita para sobrescrever ou cancelar.
 ---
- 
+
+#### UC-08: Gerenciar Cursos e Usuários
+* **Identificador:** UC-08 (Rastreável a `F-08`, `RF-16`, `RF-17`)
+* **Ator Primário:** Administrador.
+* **Pré-condições:** Usuário autenticado com perfil de Administrador (`UC-01`). A primeira conta de administrador é criada na implantação do sistema.
+* **Pós-condições:** Curso ou usuário cadastrado, atualizado ou inativado, com os vínculos registrados.
+* **Regras de Negócio:** `RN-01`, `RN-06`, `RN-07`.
+* **Fluxo Principal (Cadastro de Usuário):**
+  1. O administrador acessa *"Usuários"* e aciona *"Novo Usuário"*.
+  2. Informa nome, e-mail institucional e perfil (Estudante, Professor ou Coordenador).
+  3. O sistema exibe os campos de vínculo do perfil: Estudante, curso; Professor, curso(s) e disciplinas; Coordenador, curso.
+  4. O administrador preenche os vínculos e aciona *"Salvar"*.
+  5. O sistema valida os dados, grava o cadastro e confirma a operação.
+* **Fluxos Alternativos:**
+  * *1a. Cadastro de Curso:* O administrador acessa *"Cursos"*, aciona *"Novo Curso"*, informa nome, código e área do ENADE e salva.
+  * *1b. Edição ou inativação:* O administrador localiza o curso ou usuário na lista e o edita ou inativa.
+  * *3a. Professor de curso ainda sem disciplinas:* O sistema permite salvar o vínculo com o curso e sinaliza *"Disciplinas pendentes"*, a completar depois que o coordenador as cadastrar (`UC-09`).
+* **Fluxos de Exceção:**
+  * *5a. E-mail fora do domínio `@unifor.br` ou já cadastrado:* O sistema destaca o campo e não grava.
+  * *5b. Vínculo obrigatório ausente ou código de curso duplicado:* O sistema informa a pendência e não grava.
+
+---
+
+#### UC-09: Gerenciar Disciplinas do Curso
+* **Identificador:** UC-09 (Rastreável a `F-09`, `RF-18`)
+* **Ator Primário:** Coordenador.
+* **Pré-condições:** Curso cadastrado e coordenador vinculado a ele (`UC-08`), autenticado (`UC-01`).
+* **Pós-condições:** Disciplina cadastrada, atualizada ou inativada no curso.
+* **Regras de Negócio:** `RN-07`, `RN-08`.
+* **Fluxo Principal:**
+  1. O coordenador acessa *"Disciplinas do Curso"*.
+  2. O sistema lista as disciplinas do seu curso.
+  3. O coordenador aciona *"Nova Disciplina"*, informa nome e código e salva.
+  4. O sistema grava a disciplina no curso e atualiza a lista.
+* **Fluxos Alternativos:**
+  * *3a. Edição ou inativação:* O coordenador seleciona uma disciplina e a edita ou inativa.
+* **Fluxos de Exceção:**
+  * *4a. Campos vazios ou código duplicado no curso:* O sistema informa a inconsistência e não grava.
+
+---
+
+#### UC-10: Cadastrar Questões
+* **Identificador:** UC-10 (Rastreável a `F-10`, `RF-19`, `RF-20`)
+* **Ator Primário:** Professor.
+* **Pré-condições:** Professor autenticado (`UC-01`) e vinculado a ao menos uma disciplina (`UC-08`, `UC-09`).
+* **Pós-condições:** Questão autoral publicada no Banco de Questões (`UC-02`) e associada à disciplina.
+* **Regras de Negócio:** `RN-08`, `RN-09`.
+* **Fluxo Principal:**
+  1. O professor acessa *"Cadastrar Questão"*.
+  2. Seleciona a disciplina e informa tópico e componente.
+  3. Preenche enunciado, imagem (opcional), alternativas `A` a `E`, alternativa correta e explicação (opcional).
+  4. Aciona *"Salvar Questão"*.
+  5. O sistema valida os campos, registra a autoria e a data e publica a questão.
+* **Fluxos Alternativos:**
+  * *1a. Edição:* O professor abre *"Minhas Questões"*, altera uma questão de sua disciplina e salva.
+  * *1b. Classificação de questão do INEP (`RF-20`):* No Banco de Questões, o professor associa uma questão de Conhecimento Específico a uma disciplina e a um tópico.
+* **Fluxos de Exceção:**
+  * *5a. Campo obrigatório vazio, menos de 5 alternativas ou sem gabarito:* O sistema destaca as pendências e não publica.
+
+---
+
 ## 4. Matriz de Rastreabilidade e Consistência
  
-A tabela abaixo consolida a rastreabilidade bidirecional entre os artefatos da Sprint 1 (`01_visao_e_requisitos.md` e `02_diagramas_uml.md`) e os artefatos da Sprint 2 (`03_srs_ieee_830.md` e `04_prototipos.md`), assegurando que não existam requisitos órfãos ou divergentes.
+A tabela abaixo consolida a rastreabilidade bidirecional entre os artefatos da Sprint 1 (`01_visao_e_requisitos.md` e `02_diagramas_uml.md`) e os artefatos da Sprint 2 (`03_srs_ieee_830.md` e `04_prototipos.md`), assegurando que não existam requisitos órfãos. O status indica o que o protótipo atual ainda precisa receber.
  
 | Funcionalidade (Visão) | Caso de Uso UML | Requisito Funcional (SRS) | Caso de Uso Detalhado (SRS) | Tela no Protótipo (`04_prototipos.md`) | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **F-01:** Autenticar via SSO | `UC1: Autenticar via SSO` | `RF-01`, `RF-02` | **UC-01** | Tela de Acesso Institucional | **Consistente** |
+| **F-01:** Autenticar via SSO | `UC1: Autenticar via SSO` | `RF-01`, `RF-02` | **UC-01** | Tela de Acesso Institucional | **Parcial no protótipo** (SSO apenas descrito; restrições por vínculo incompletas) |
 | **F-02:** Filtrar Banco de Questões | `UC2: Filtrar Banco de Questões` | `RF-03`, `RF-04` | **UC-02** | Banco de Questões | **Consistente** |
-| **F-03:** Motor de Simulados | `UC3: Realizar Simulado` | `RF-05` a `RF-08` | **UC-03** | Configurar simulado, Ambiente do Simulado e Resultado | **Consistente** |
-| **F-04:** Gabarito Comentado | `UC4: Acessar Gabarito` | `RF-09`, `RF-10` | **UC-04** | Revisão da Questão (Gabarito Comentado) | **Consistente** |
-| **F-05:** Fórum por Questão | `UC5: Fórum da Questão` | `RF-11`, `RF-12` | **UC-05** | Revisão da Questão (Fórum da Questão) | **Consistente** |
-| **F-06:** Painel de Desempenho | `UC6: Visualizar Painel` | `RF-13`, `RF-14` | **UC-06** | Início, Meu Desempenho, Desempenho das Disciplinas e Painel Institucional | **Consistente** |
-| **F-07:** Importar Provas INEP | `UC7: Importar Provas` | `RF-15` | **UC-07** | Importar Provas INEP (perfil Administrador) | **Consistente** |
+| **F-03:** Motor de Simulados | `UC3: Realizar Simulado` | `RF-05` a `RF-08` | **UC-03** | Configurar simulado, Ambiente do Simulado e Resultado | **Parcial no protótipo** (regras na configuração, resultado por componente e questões autorais no simulado) |
+| **F-04:** Gabarito Comentado | `UC4: Acessar Gabarito` | `RF-09`, `RF-10` | **UC-04** | Revisão da Questão (Gabarito Comentado) | **Parcial no protótipo** (seção expansível e edição do comentário) |
+| **F-05:** Fórum por Questão | `UC5: Fórum da Questão` | `RF-11`, `RF-12` | **UC-05** | Revisão da Questão (Fórum da Questão) | **Parcial no protótipo** (hora e motivo da moderação) |
+| **F-06:** Painel de Desempenho | `UC6: Visualizar Painel` | `RF-13`, `RF-14` | **UC-06** | Início, Meu Desempenho, Desempenho das Disciplinas e Painel Institucional | **Parcial no protótipo** (gráficos, ranking e filtros) |
+| **F-07:** Importar Provas INEP | `UC7: Importar Provas` | `RF-15` | **UC-07** | Importar Provas INEP (perfil Professor) | **Parcial no protótipo** (processamento e publicação) |
+| **F-08:** Cursos e Usuários | `UC8: Gerenciar Cursos e Usuários` | `RF-16`, `RF-17` | **UC-08** | Cursos e Usuários (perfil Administrador) | **Parcial no protótipo** (campos, edição e inativação) |
+| **F-09:** Disciplinas do Curso | `UC9: Gerenciar Disciplinas` | `RF-18` | **UC-09** | Disciplinas do Curso (perfil Coordenador) | **Parcial no protótipo** (código, edição e curso fixo) |
+| **F-10:** Cadastro de Questões | `UC10: Cadastrar Questões` | `RF-19`, `RF-20` | **UC-10** | Cadastrar Questão e Minhas Questões (perfil Professor) | **Parcial no protótipo** (tópico, Minhas Questões e classificação) |
+ 
  
